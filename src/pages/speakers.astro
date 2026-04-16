@@ -1,12 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { speakers } from '../content/speakers';
+
+// Person schema for each speaker — helps Google Knowledge Graph
+const peopleLd = speakers.map(s => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': new URL(`/speakers#${s.slug}`, Astro.site).toString(),
+  name: s.name,
+  jobTitle: s.role,
+  description: s.teaser,
+  image: s.image,
+  url: new URL(`/speakers#${s.slug}`, Astro.site).toString(),
+  worksFor: { '@id': `${Astro.site}#organization` },
+  knowsAbout: s.topics,
+}));
 ---
 
 <Layout
   title="Speakers"
   description="Meet the Nevada-based operators behind NLAS: Cody Whipple, Joseph Charafi, and Marlon Medina. Business owners, nonprofit leaders, and authors delivering applied leadership training to students across Nevada."
 >
+  <Fragment slot="head">
+    {peopleLd.map(p => <script type="application/ld+json" set:html={JSON.stringify(p)} />)}
+  </Fragment>
   <!-- Hero -->
   <section class="section pb-12 md:pb-16">
     <div class="container-page">

@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://nvleadership.org',
+  site: 'https://leadershipseries.org',
   output: 'static',
   integrations: [sitemap()],
   vite: {

@@ -8,18 +8,82 @@ interface Props {
   description?: string;
   image?: string;
   canonical?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article' | 'profile';
+  /** schema.org type override 4 structured data on this page */
+  schemaType?: 'Organization' | 'WebSite' | 'AboutPage' | 'ContactPage' | 'Person';
 }
+
 const {
   title = 'Nevada Leadership & Accountability Series',
-  description = 'Preparing the next generation of Nevada students to lead with integrity, discipline, and digital responsibility. Real Nevada leaders, real conversations.',
+  description = 'Real Nevada leaders. Real conversations. NLAS delivers applied leadership training to middle school, high school, and college students — covering accountability, digital responsibility, cyberbullying, and entrepreneurship.',
   image = '/og-image.png',
   canonical,
+  noindex = false,
+  type = 'website',
+  schemaType = 'WebSite',
 } = Astro.props;
 
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(image, Astro.site).toString();
 const fullTitle = title === 'Nevada Leadership & Accountability Series'
-  ? title
+  ? 'Nevada Leadership & Accountability Series · Real Nevada Leaders'
   : `${title} · NLAS`;
+
+// ---------- Structured Data ----------
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${Astro.site}#organization`,
+  name: 'Nevada Leadership & Accountability Series',
+  alternateName: ['NLAS', 'Nevada Leadership Series'],
+  url: Astro.site?.toString(),
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/icon-512.png', Astro.site).toString(),
+    width: 512,
+    height: 512,
+  },
+  image: ogImage,
+  description,
+  areaServed: { '@type': 'State', name: 'Nevada' },
+  foundingLocation: { '@type': 'Place', name: 'Las Vegas, Nevada, United States' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Las Vegas',
+    addressRegion: 'NV',
+    addressCountry: 'US',
+  },
+  knowsAbout: [
+    'Leadership development',
+    'Student accountability',
+    'Digital responsibility',
+    'Cyberbullying prevention',
+    'Youth entrepreneurship',
+    'Career and technical education',
+  ],
+  sameAs: [],
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${Astro.site}#website`,
+  url: Astro.site?.toString(),
+  name: 'Nevada Leadership & Accountability Series',
+  description,
+  publisher: { '@id': `${Astro.site}#organization` },
+  inLanguage: 'en-US',
+};
+
+const pageLd = schemaType && schemaType !== 'WebSite' && schemaType !== 'Organization' ? {
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  name: fullTitle,
+  description,
+  url: canonicalURL,
+  isPartOf: { '@id': `${Astro.site}#website` },
+} : null;
 ---
 
 <!doctype html>
@@ -29,47 +93,78 @@ const fullTitle = title === 'Nevada Leadership & Accountability Series'
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0A1628" />
     <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Nevada Leadership & Accountability Series" />
+    <meta name="publisher" content="Nevada Leadership & Accountability Series" />
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Keywords (low SEO weight but some crawlers still use) -->
+    <meta name="keywords" content="Nevada leadership, student leadership training, accountability, digital responsibility, cyberbullying prevention, youth entrepreneurship, school assembly speakers, Las Vegas speakers, NLAS, Joseph Charafi, Cody Whipple, Marlon Medina, Stop The Traffic Foundation" />
+
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Nevada Leadership & Accountability Series" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
-    <meta property="og:site_name" content="NLAS" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nevada Leadership & Accountability Series — real Nevada leaders, real conversations" />
+
+    <!-- Square variant for iMessage / LinkedIn avatar-style previews -->
+    <meta property="og:image" content={new URL('/og-square.png', Astro.site).toString()} />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1080" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site).toString()} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Nevada Leadership & Accountability Series" />
 
+    <!-- iMessage / Apple (Apple reads og + apple-mobile-web-app tags) -->
+    <meta name="apple-mobile-web-app-title" content="NLAS" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="application-name" content="NLAS" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/favicon.svg" color="#0A1628" />
+
+    <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Fonts -->
+    <!-- Performance hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Archivo:wght@500;600;700;800;900&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'Nevada Leadership & Accountability Series',
-      alternateName: 'NLAS',
-      url: canonicalURL,
-      logo: new URL('/favicon.svg', Astro.site).toString(),
-      description,
-      areaServed: 'Nevada',
-      foundingLocation: { '@type': 'Place', name: 'Las Vegas, Nevada' },
-      sameAs: [],
-    })} />
+    <!-- Structured Data: Organization + WebSite -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+    {pageLd && <script type="application/ld+json" set:html={JSON.stringify(pageLd)} />}
+    <slot name="head" />
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] btn btn-gold">Skip to content</a>

@@ -1,0 +1,14 @@
+{
+  "name": "Nevada Leadership & Accountability Series",
+  "short_name": "NLAS",
+  "description": "Real Nevada leaders. Real conversations. Applied leadership training for middle school, high school, and college students.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A1628",
+  "theme_color": "#0A1628",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
