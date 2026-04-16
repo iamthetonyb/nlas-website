@@ -78,6 +78,38 @@ export const speakers: Speaker[] = [
     status: 'current',
   },
   {
+    slug: 'tony-benton',
+    name: 'Tony Benton',
+    title: 'Tony Benton',
+    role: 'Builder · Technologist · Digital Operator',
+    shortRole: 'Builder · Technologist',
+    image: '/images/speakers/tony-benton.jpg',
+    teaser:
+      'Nevada based builder and technologist working at the intersection of emerging technology, brand, and accountability in an AI driven world.',
+    // EDIT ME — this bio is a first-draft template in the NLAS voice.
+    // Swap any paragraph with your own voice; the layout auto-adapts.
+    bio: [
+      "Tony Benton is a Nevada based builder, technologist, and digital operator focused on the intersection of emerging technology, brand, and personal accountability in an AI driven world.",
+      "Through the thetonyb brand, Tony has built, shipped, and operated digital products across automation, AI tooling, and web infrastructure, working directly with founders and operators to turn ideas into systems that actually run in production.",
+      "His work behind the scenes on the Nevada Leadership & Accountability Series reflects the same philosophy he brings to the stage: use modern tools, move with speed without cutting corners, and stay accountable for what you ship.",
+      "For students, Tony translates the realities of the modern digital economy. How platforms actually work. What a digital footprint means in an AI indexed world. And why a personal operating system beats motivation every time.",
+      "He believes the next generation of Nevada leaders will not be the loudest voices online. They will be the ones who build, ship, and take ownership of the systems around them.",
+    ],
+    topics: [
+      'Building in the age of AI and automation',
+      'Personal operating systems over motivation',
+      'Digital footprint in an AI indexed world',
+      'Shipping real products vs chasing attention',
+      'Ownership and accountability for what you build',
+    ],
+    accent: 'blue',
+    featured: true,
+    status: 'current',
+    links: [
+      { label: 'thetonyb.com', href: 'https://thetonyb.com' },
+    ],
+  },
+  {
     slug: 'marlon-medina',
     name: 'Marlon Medina',
     title: 'Marlon Medina',
@@ -103,7 +135,7 @@ export const speakers: Speaker[] = [
       'Speaking truth with integrity',
     ],
     accent: 'gold',
-    featured: true,
+    featured: false,
     status: 'current',
   },
 ];
