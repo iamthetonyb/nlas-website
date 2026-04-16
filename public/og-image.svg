@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#1A3E7C"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B6C7D9"/>
+      <stop offset="45%" stop-color="#3D78C9"/>
+      <stop offset="100%" stop-color="#0A3A7A"/>
+    </linearGradient>
+    <pattern id="stripes" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#0A1628" stroke-width="2.5"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="80" y="115" width="300" height="400" rx="4" fill="url(#mark)"/>
+  <rect x="80" y="115" width="300" height="400" rx="4" fill="url(#stripes)" opacity="0.5"/>
+  <g font-family="Archivo, Inter, sans-serif" fill="#ffffff" font-weight="900">
+    <text x="430" y="210" font-size="72">NEVADA</text>
+    <text x="430" y="290" font-size="72">LEADERSHIP &amp;</text>
+    <text x="430" y="370" font-size="72">ACCOUNTABILITY</text>
+  </g>
+  <text x="430" y="450" font-family="Dancing Script, cursive" font-size="86" fill="#E8B547" font-style="italic">Series</text>
+  <text x="430" y="530" font-family="Inter, sans-serif" font-size="22" fill="#8B9BB4" letter-spacing="4">REAL NEVADA LEADERS · REAL CONVERSATIONS</text>
+</svg>

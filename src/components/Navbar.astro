@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+const { pathname } = Astro.url;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/speakers', label: 'Speakers' },
+  { href: '/contact', label: 'Contact' },
+];
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 pt-4 md:pt-6">
+  <div class="container-page">
+    <nav class="nav-pill flex items-center justify-between pl-5 pr-2 md:pl-7 md:pr-3 py-2 md:py-2.5" aria-label="Primary">
+      <a href="/" class="flex items-center gap-3" aria-label="NLAS — home">
+        <Logo variant="compact" />
+      </a>
+
+      <ul class="hidden md:flex items-center gap-2 lg:gap-3">
+        {links.map(l => (
+          <li>
+            <a
+              href={l.href}
+              class={`px-4 py-2 rounded-full text-sm font-medium transition ${isActive(l.href)
+                ? 'bg-[var(--color-brand-blue)] text-white'
+                : 'text-[var(--color-ink)] hover:bg-white/5'}`}
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <a href="/contact" class="hidden md:inline-flex btn btn-gold !py-2 !px-5 !text-sm">Book NLAS →</a>
+
+      <button id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" class="md:hidden w-11 h-11 rounded-full border border-[var(--color-border-strong)] flex items-center justify-center text-white" type="button">
+        <span class="sr-only">Open menu</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile drawer -->
+    <div id="nav-drawer" class="md:hidden hidden mt-3 nav-pill !rounded-3xl p-4">
+      <ul class="flex flex-col gap-1">
+        {links.map(l => (
+          <li>
+            <a href={l.href} class={`block px-4 py-3 rounded-2xl text-base font-medium ${isActive(l.href) ? 'bg-[var(--color-brand-blue)] text-white' : 'text-[var(--color-ink)] hover:bg-white/5'}`}>{l.label}</a>
+          </li>
+        ))}
+        <li class="pt-2">
+          <a href="/contact" class="btn btn-gold w-full justify-center">Book NLAS →</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+  btn?.addEventListener('click', () => {
+    const open = drawer?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>

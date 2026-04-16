@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { speakers } from '../content/speakers';
+---
+
+<Layout
+  title="Speakers"
+  description="Meet the Nevada-based operators behind NLAS: Cody Whipple, Joseph Charafi, and Marlon Medina. Business owners, nonprofit leaders, and authors delivering applied leadership training to students across Nevada."
+>
+  <!-- Hero -->
+  <section class="section pb-12 md:pb-16">
+    <div class="container-page">
+      <div class="eyebrow">Speakers</div>
+      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl">
+        Not career lecturers. <span class="script normal-case font-normal">Operators.</span>
+      </h1>
+      <p class="mt-8 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
+        Our speakers are business owners, nonprofit leaders, authors, and operators actively working in Nevada communities. Students respond because the message is authentic. Administrators value us because the content is responsible and solution focused.
+      </p>
+    </div>
+  </section>
+
+  <!-- Speaker list (alternating) -->
+  {speakers.map((s, idx) => (
+    <section id={s.slug} class="section !py-16 md:!py-24 scroll-mt-24 border-t border-[var(--color-border)]">
+      <div class="container-page">
+        <div class={`grid md:grid-cols-12 gap-10 md:gap-16 items-start ${idx % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
+          <!-- Portrait -->
+          <div class="md:col-span-5 lg:col-span-4">
+            <div class="relative mx-auto max-w-[420px]">
+              <div class="portrait ring-1 ring-[var(--color-border-strong)] shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+                <img src={s.image} alt={`${s.name} — ${s.role}`} width="800" height="800" loading="lazy" decoding="async" />
+              </div>
+              <a href="/contact" class="portrait-satellite" aria-label={`Book a session featuring ${s.name}`}
+                 style={s.accent === 'blue' ? 'background: var(--color-brand-blue); color: #fff;' : ''}>→</a>
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="md:col-span-7 lg:col-span-8">
+            <div class="eyebrow">{idx === 0 ? 'Speaker 01' : idx === 1 ? 'Speaker 02 · Founder' : 'Speaker 03'}</div>
+            <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-display font-black uppercase leading-[0.98] tracking-tight">
+              {s.title}
+            </h2>
+            <p class="mt-4 text-lg text-[var(--color-brand-gold)]">{s.role}</p>
+
+            <div class="mt-8 space-y-5 text-[1.02rem] leading-relaxed text-[var(--color-ink)]/88">
+              {s.bio.map((p) => <p>{p}</p>)}
+            </div>
+
+            <div class="mt-10">
+              <div class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-ink-muted)] mb-4">
+                {s.slug === 'joey-charafi'
+                  ? 'Joseph and the NLAS speakers challenge students on:'
+                  : `Through NLAS, ${s.name.split(' ')[0]} speaks to students about:`}
+              </div>
+              <ul class="grid sm:grid-cols-2 gap-2">
+                {s.topics.map((t) => (
+                  <li class="flex items-start gap-3 py-2">
+                    <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span>
+                    <span class="leading-snug">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="mt-10 flex flex-wrap gap-3">
+              <a href="/contact" class="btn btn-gold">Book {s.name.split(' ')[0]} →</a>
+              <a href="/" class="btn btn-ghost">Back to overview</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Bottom CTA -->
+  <section class="section pt-8 md:pt-12">
+    <div class="container-page">
+      <div class="orbit-line mb-14"></div>
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="eyebrow justify-center">Ready to book</div>
+        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold">
+          Bring a Nevada operator into your <span class="script">classroom.</span>
+        </h2>
+        <a href="/contact" class="mt-8 btn btn-gold btn-lg">Book NLAS →</a>
+      </div>
+    </div>
+  </section>
+</Layout>

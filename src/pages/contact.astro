@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Replace with your actual Formspree endpoint or keep mailto fallback.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
+const FALLBACK_EMAIL = 'booking@nvleadership.org';
+---
+
+<Layout
+  title="Contact · Book NLAS"
+  description="Book the Nevada Leadership & Accountability Series for your middle school, high school, or college. Reach out to schedule a session, request speaker availability, or request a partnership proposal."
+>
+  <section class="section pb-8 md:pb-12">
+    <div class="container-page">
+      <div class="eyebrow">Book NLAS</div>
+      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl">
+        Let's bring <span class="script normal-case font-normal">real</span> conversations to your students.
+      </h1>
+      <p class="mt-8 text-lg text-[var(--color-ink)]/85 max-w-2xl leading-relaxed">
+        Tell us about your school and we'll respond with availability, formats, and next steps. Most sessions are booked 2–6 weeks in advance.
+      </p>
+    </div>
+  </section>
+
+  <section class="section !pt-4 md:!pt-6">
+    <div class="container-page grid md:grid-cols-12 gap-10 md:gap-14">
+      <!-- Form -->
+      <form
+        class="md:col-span-8 card !p-6 md:!p-10 !rounded-[28px]"
+        action={FORMSPREE_ENDPOINT}
+        method="POST"
+        aria-label="Booking request form"
+      >
+        <div class="grid md:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="text-sm font-semibold">Your name</span>
+            <input required name="name" type="text" autocomplete="name"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-semibold">Role</span>
+            <input required name="role" type="text" placeholder="Principal, Counselor, etc."
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-semibold">Email</span>
+            <input required name="_replyto" type="email" autocomplete="email"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-semibold">Phone (optional)</span>
+            <input name="phone" type="tel" autocomplete="tel"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block md:col-span-2">
+            <span class="text-sm font-semibold">School / Institution</span>
+            <input required name="school" type="text"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-semibold">Audience level</span>
+            <select required name="audience"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white">
+              <option value="">Select…</option>
+              <option>Middle school</option>
+              <option>High school</option>
+              <option>College</option>
+              <option>Mixed / Other</option>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-semibold">Approx. student count</span>
+            <input name="students" type="text" placeholder="e.g. 250"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block md:col-span-2">
+            <span class="text-sm font-semibold">What would you like NLAS to focus on?</span>
+            <textarea required name="message" rows="5"
+              placeholder="Leadership under pressure, cyberbullying, digital footprint, entrepreneurship, Q&A format, dates you have in mind…"
+              class="mt-2 w-full px-4 py-3 rounded-3xl bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white resize-y"></textarea>
+          </label>
+        </div>
+
+        <!-- Formspree anti-spam -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value="New NLAS booking request" />
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <button type="submit" class="btn btn-gold btn-lg">Send request →</button>
+          <a href={`mailto:${FALLBACK_EMAIL}?subject=NLAS%20Booking%20Request`} class="btn btn-ghost">Or email us directly</a>
+        </div>
+        <p class="mt-4 text-xs text-[var(--color-ink-muted)]">
+          We respond to booking inquiries within 2 business days.
+        </p>
+      </form>
+
+      <!-- Aside -->
+      <aside class="md:col-span-4 space-y-6">
+        <div class="card !rounded-[24px]">
+          <div class="eyebrow">Direct</div>
+          <a href={`mailto:${FALLBACK_EMAIL}`} class="mt-3 block text-xl font-display font-bold text-white hover:text-[var(--color-brand-gold)] transition break-words">{FALLBACK_EMAIL}</a>
+          <p class="mt-3 text-sm text-[var(--color-ink-muted)]">
+            Las Vegas, Nevada · Serving Nevada schools statewide.
+          </p>
+        </div>
+
+        <div class="card !rounded-[24px]">
+          <div class="eyebrow">Formats</div>
+          <ul class="mt-4 space-y-3 text-sm text-[var(--color-ink)]/90">
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Single-speaker keynote (30–45 min)</li>
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Full NLAS panel + Q&amp;A (60–90 min)</li>
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Multi-period classroom rotations</li>
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Assembly-scale presentation</li>
+          </ul>
+        </div>
+
+        <div class="card !rounded-[24px] border-[var(--color-brand-gold)]/40">
+          <div class="eyebrow">What you'll get</div>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--color-ink)]/90">
+            Age-appropriate content. Meaningful Q&amp;A. Nevada operators speaking from lived experience — not theory. Content that is responsible and solution focused.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   NLAS DESIGN TOKENS
+   Inspired by the PDF brochure (deep navy + gold script accent)
+   and the Mastercard editorial system (pill radii, circular
+   portraits, satellite CTAs, tight negative tracking on display).
+   --------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces */
+  --color-canvas: #0A1628;           /* deep navy — page background */
+  --color-canvas-lifted: #0F1E35;    /* one step lighter — nested sections */
+  --color-canvas-deep: #050D1A;      /* footer / hero vignette */
+  --color-ink: #F5F7FA;              /* primary text on dark */
+  --color-ink-muted: #8B9BB4;        /* secondary text */
+  --color-ink-whisper: #4A5A74;      /* ghost watermark headlines */
+
+  /* Brand */
+  --color-brand-blue: #2B5DA8;       /* bright accent blue (from PDF gradient) */
+  --color-brand-blue-hi: #3D78C9;    /* hover / hi-light */
+  --color-brand-blue-lo: #1A3E7C;    /* deep */
+  --color-brand-gold: #E8B547;       /* "Series" script gold */
+  --color-brand-gold-hi: #F4C96A;
+  --color-brand-steel: #5A7BA8;      /* cool steel-blue for dividers */
+
+  /* Semantic */
+  --color-border: rgba(245, 247, 250, 0.12);
+  --color-border-strong: rgba(245, 247, 250, 0.24);
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", "Inter", sans-serif;
+  --font-script: "Dancing Script", "Allura", cursive;
+}
+
+/* ---------- Base ---------- */
+html {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 450;
+  line-height: 1.55;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  min-height: 100svh;
+}
+
+/* Display typography — tight negative tracking like Mastercard headlines */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+h1 { line-height: 1.02; }
+h2 { line-height: 1.08; }
+h3 { line-height: 1.18; }
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--color-brand-gold);
+}
+
+/* Eyebrow label — tiny accent dot + uppercase tracking */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brand-gold);
+}
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-gold);
+  flex: 0 0 6px;
+}
+
+/* ---------- Utilities ---------- */
+.container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-page { padding-inline: 2.5rem; }
+}
+@media (min-width: 1280px) {
+  .container-page { padding-inline: 4rem; }
+}
+
+/* Section rhythm */
+.section {
+  padding-block: 4rem;
+}
+@media (min-width: 768px) {
+  .section { padding-block: 6rem; }
+}
+@media (min-width: 1024px) {
+  .section { padding-block: 8rem; }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--color-brand-blue);
+  color: #fff;
+  border-color: var(--color-brand-blue);
+}
+.btn-primary:hover { background: var(--color-brand-blue-hi); border-color: var(--color-brand-blue-hi); }
+
+.btn-gold {
+  background: var(--color-brand-gold);
+  color: #1A1200;
+  border-color: var(--color-brand-gold);
+}
+.btn-gold:hover { background: var(--color-brand-gold-hi); border-color: var(--color-brand-gold-hi); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-border-strong);
+}
+.btn-ghost:hover { border-color: var(--color-ink); background: rgba(245,247,250,0.04); }
+
+.btn-lg { padding: 1rem 2.25rem; font-size: 1rem; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--color-canvas-lifted);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 1.75rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.card:hover { border-color: var(--color-border-strong); }
+
+/* Hero stadium frame (40px radius — signature) */
+.stadium {
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+/* Circular portrait — speaker treatment */
+.portrait {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  isolation: isolate;
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.portrait-satellite {
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-brand-gold);
+  color: #1A1200;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+.portrait-satellite:hover { transform: translate(2px, -2px) rotate(-8deg); background: var(--color-brand-gold-hi); }
+
+/* Ghost watermark headline (behind content) */
+.ghost-h {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(4rem, 14vw, 11rem);
+  color: var(--color-ink-whisper);
+  opacity: 0.10;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Thin gold orbital divider — Mastercard-inspired arc motif */
+.orbit-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-brand-gold) 50%, transparent);
+  opacity: 0.35;
+}
+
+/* ---------- Nav pill ---------- */
+.nav-pill {
+  background: rgba(15, 30, 53, 0.72);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+/* ---------- Fine print ---------- */
+.fine {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--color-brand-gold);
+  color: #1A1200;
+}
+
+/* ---------- Focus ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

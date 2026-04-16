@@ -1,0 +1,57 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[var(--color-canvas-deep)] border-t border-[var(--color-border)] mt-16 md:mt-24">
+  <div class="container-page py-16 md:py-24">
+    <!-- Conversational headline (Mastercard footer style) -->
+    <h2 class="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.05] max-w-3xl">
+      Ready to bring <span class="script text-[var(--color-brand-gold)]">real</span> leadership training to your students?
+    </h2>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/contact" class="btn btn-gold btn-lg">Book NLAS →</a>
+      <a href="/speakers" class="btn btn-ghost btn-lg">Meet the speakers</a>
+    </div>
+
+    <div class="orbit-line my-16"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      <div class="md:col-span-2">
+        <Logo variant="compact" />
+        <p class="mt-5 text-sm text-[var(--color-ink-muted)] max-w-sm leading-relaxed">
+          The Nevada Leadership &amp; Accountability Series is a Nevada-based initiative equipping middle school, high school, and college students to lead with integrity, discipline, and digital responsibility.
+        </p>
+      </div>
+
+      <div>
+        <div class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-ink-muted)] mb-4">Explore</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/" class="hover:text-[var(--color-brand-gold)] transition">Home</a></li>
+          <li><a href="/about" class="hover:text-[var(--color-brand-gold)] transition">About</a></li>
+          <li><a href="/speakers" class="hover:text-[var(--color-brand-gold)] transition">Speakers</a></li>
+          <li><a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-ink-muted)] mb-4">Partner</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/#why" class="hover:text-[var(--color-brand-gold)] transition">Why partner</a></li>
+          <li><a href="/#mission" class="hover:text-[var(--color-brand-gold)] transition">Our mission</a></li>
+          <li><a href="/#topics" class="hover:text-[var(--color-brand-gold)] transition">Topics covered</a></li>
+          <li><a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Book a session ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-6 border-t border-[var(--color-border)] flex flex-col md:flex-row gap-4 md:items-center justify-between text-xs text-[var(--color-ink-muted)]">
+      <div>© {year} Nevada Leadership &amp; Accountability Series. Proudly Nevada-based.</div>
+      <div class="flex items-center gap-4">
+        <span>Las Vegas, NV</span>
+        <span aria-hidden="true">·</span>
+        <a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Press &amp; Partnerships</a>
+      </div>
+    </div>
+  </div>
+</footer>
