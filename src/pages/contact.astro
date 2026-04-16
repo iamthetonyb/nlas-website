@@ -1,21 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// ← Replace REPLACE_ME with your Formspree form ID (from formspree.io/forms dashboard)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
+import { speakers } from '../content/speakers';
+
+/**
+ * Form backend — FormSubmit.co
+ * -----------------------------------------
+ * FormSubmit is free, unlimited, and requires NO signup.
+ * Just replace `YOUR_EMAIL` below with the booking email.
+ * On first submission, FormSubmit sends ONE confirmation email
+ * to that address — click the confirm link and it's active forever.
+ *
+ * After the first submit they'll give you a random ID like `abc123xyz`
+ * so your email never appears publicly. Swap it in at that point.
+ */
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
+// ↑ FormSubmit sends ONE confirmation email to this address on first submit — click the link to activate.
+// After confirmation, swap this for the random ID FormSubmit gives you so the email stays private.
 ---
 
 <Layout
   title="Contact · Book NLAS"
-  description="Book the Nevada Leadership & Accountability Series for your middle school, high school, or college. Reach out to schedule a session, request speaker availability, or request a partnership proposal."
+  description="Book NLAS for your K-12 school or college, or apply to become an NLAS speaker. Serving Nevada communities statewide."
   schemaType="ContactPage"
 >
   <section class="section pb-8 md:pb-12">
     <div class="container-page">
-      <div class="eyebrow">Book NLAS</div>
-      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl">
+      <div class="eyebrow" id="intent-eyebrow">Book NLAS</div>
+      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl" id="intent-h1">
         Let's bring <span class="script normal-case font-normal">real</span> conversations to your students.
       </h1>
-      <p class="mt-8 text-lg text-[var(--color-ink)]/85 max-w-2xl leading-relaxed">
+      <p class="mt-8 text-lg text-[var(--color-ink)]/85 max-w-2xl leading-relaxed" id="intent-sub">
         Tell us about your school and we'll respond with availability, formats, and next steps. Most sessions are booked 2–6 weeks in advance.
       </p>
     </div>
@@ -25,12 +39,27 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
     <div class="container-page grid md:grid-cols-12 gap-10 md:gap-14">
       <!-- Form -->
       <form
+        id="contact-form"
         class="md:col-span-8 card !p-6 md:!p-10 !rounded-[28px]"
-        action={FORMSPREE_ENDPOINT}
+        action={FORM_ENDPOINT}
         method="POST"
-        aria-label="Booking request form"
+        aria-label="Contact form"
       >
-        <div class="grid md:grid-cols-2 gap-5">
+        <!-- Inquiry type — dynamic based on ?type= URL param -->
+        <div class="mb-6">
+          <label class="block">
+            <span class="text-sm font-semibold">I'm reaching out about</span>
+            <select required name="inquiry_type" id="inquiry_type"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white">
+              <option value="book">Booking NLAS for my school / college</option>
+              <option value="become-speaker">Becoming an NLAS speaker</option>
+              <option value="partnership">A partnership or press opportunity</option>
+              <option value="other">Something else</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5" id="booking-fields">
           <label class="block">
             <span class="text-sm font-semibold">Your name</span>
             <input required name="name" type="text" autocomplete="name"
@@ -38,14 +67,14 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
           </label>
 
           <label class="block">
-            <span class="text-sm font-semibold">Role</span>
-            <input required name="role" type="text" placeholder="Principal, Counselor, etc."
+            <span class="text-sm font-semibold">Role / Title</span>
+            <input required name="role" type="text" placeholder="Principal, Counselor, Founder, etc."
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
           </label>
 
           <label class="block">
             <span class="text-sm font-semibold">Email</span>
-            <input required name="_replyto" type="email" autocomplete="email"
+            <input required name="email" type="email" autocomplete="email"
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
           </label>
 
@@ -55,48 +84,76 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
           </label>
 
-          <label class="block md:col-span-2">
-            <span class="text-sm font-semibold">School / Institution</span>
-            <input required name="school" type="text"
+          <label class="block md:col-span-2" data-show="book partnership">
+            <span class="text-sm font-semibold">School, college, or organization</span>
+            <input name="school" type="text"
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
           </label>
 
-          <label class="block">
+          <label class="block" data-show="book">
             <span class="text-sm font-semibold">Audience level</span>
-            <select required name="audience"
+            <select name="audience"
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white">
               <option value="">Select…</option>
-              <option>Middle school</option>
-              <option>High school</option>
-              <option>College</option>
+              <option>Elementary (K-5)</option>
+              <option>Middle school (6-8)</option>
+              <option>High school (9-12)</option>
+              <option>College / University</option>
               <option>Mixed / Other</option>
             </select>
           </label>
 
-          <label class="block">
+          <label class="block" data-show="book">
             <span class="text-sm font-semibold">Approx. student count</span>
             <input name="students" type="text" placeholder="e.g. 250"
               class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
           </label>
 
+          <label class="block" data-show="book">
+            <span class="text-sm font-semibold">Speaker of interest (optional)</span>
+            <select name="speaker_interest" id="speaker_interest"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white">
+              <option value="">Open to any / full roster</option>
+              {speakers.map((s) => <option value={s.name}>{s.name}</option>)}
+            </select>
+          </label>
+
+          <label class="block" data-show="become-speaker">
+            <span class="text-sm font-semibold">Your background / expertise</span>
+            <input name="background" type="text" placeholder="Founder · Athlete · First responder · Author · etc."
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
+          <label class="block" data-show="become-speaker">
+            <span class="text-sm font-semibold">Website / LinkedIn (optional)</span>
+            <input name="link" type="url" placeholder="https://"
+              class="mt-2 w-full px-4 py-3 rounded-full bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white" />
+          </label>
+
           <label class="block md:col-span-2">
-            <span class="text-sm font-semibold">What would you like NLAS to focus on?</span>
-            <textarea required name="message" rows="5"
-              placeholder="Leadership under pressure, cyberbullying, digital footprint, entrepreneurship, Q&A format, dates you have in mind…"
+            <span class="text-sm font-semibold" id="message-label">Tell us more</span>
+            <textarea required name="message" rows="5" id="message"
+              placeholder="Dates, topics of interest, or anything else we should know…"
               class="mt-2 w-full px-4 py-3 rounded-3xl bg-[var(--color-canvas)] border border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-gold)] text-white resize-y"></textarea>
           </label>
         </div>
 
-        <!-- Formspree anti-spam -->
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_subject" value="New NLAS booking request" />
+        <!-- FormSubmit config -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_subject" value="New NLAS inquiry" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value="https://leadershipseries.org/contact?sent=1" />
 
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <button type="submit" class="btn btn-gold btn-lg">Send request →</button>
+          <button type="submit" class="btn btn-gold btn-lg" id="submit-btn">Send →</button>
+          <span class="text-xs text-[var(--color-ink-muted)]" id="submit-hint">We respond to inquiries within 2 business days.</span>
         </div>
-        <p class="mt-4 text-xs text-[var(--color-ink-muted)]">
-          We respond to booking inquiries within 2 business days.
-        </p>
+
+        <!-- Success toast (shown after successful submit) -->
+        <div id="form-success" class="mt-6 p-4 rounded-2xl border border-[var(--color-brand-gold)]/40 bg-[var(--color-brand-gold)]/10 text-sm hidden">
+          <strong class="text-[var(--color-brand-gold)]">Sent.</strong> Thanks — we'll be in touch within 2 business days.
+        </div>
       </form>
 
       <!-- Aside -->
@@ -105,7 +162,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
           <div class="eyebrow">Based in</div>
           <p class="mt-3 text-xl font-display font-bold text-white">Las Vegas, Nevada</p>
           <p class="mt-3 text-sm text-[var(--color-ink-muted)]">
-            Serving Nevada schools statewide — middle school, high school, and college.
+            Serving K-12 schools and colleges across Nevada statewide.
           </p>
         </div>
 
@@ -128,4 +185,101 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
       </aside>
     </div>
   </section>
+
+  <!-- ---- Form UX: intent switching + URL prefill ---- -->
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('contact-form');
+      const selType = document.getElementById('inquiry_type');
+      const selSpeaker = document.getElementById('speaker_interest');
+      const msg = document.getElementById('message');
+      const eyebrow = document.getElementById('intent-eyebrow');
+      const h1 = document.getElementById('intent-h1');
+      const sub = document.getElementById('intent-sub');
+      const submitBtn = document.getElementById('submit-btn');
+      const successEl = document.getElementById('form-success');
+
+      // Apply intent 2 visible copy + conditional fields
+      function applyIntent(type) {
+        // Toggle [data-show] fields
+        document.querySelectorAll('[data-show]').forEach((el) => {
+          const shows = el.getAttribute('data-show').split(/\s+/);
+          el.style.display = shows.includes(type) ? '' : 'none';
+          // Disable required fields that are hidden
+          el.querySelectorAll('input, select, textarea').forEach((i) => {
+            if (el.style.display === 'none') i.removeAttribute('required');
+          });
+        });
+
+        // Copy + CTA by intent
+        if (type === 'become-speaker') {
+          eyebrow.textContent = 'Become a speaker';
+          h1.innerHTML = 'Think you\u2019ve got a <span class="script normal-case font-normal">story</span> Nevada students need?';
+          sub.textContent = 'Tell us who you are and what you bring. NLAS is always looking for Nevada-based operators with real, lived experience.';
+          submitBtn.textContent = 'Submit application \u2192';
+          msg.placeholder = 'Why you? What would your message to students be? Any past speaking experience?';
+        } else if (type === 'partnership') {
+          eyebrow.textContent = 'Partnership';
+          h1.innerHTML = 'Let\u2019s build something <span class="script normal-case font-normal">together.</span>';
+          sub.textContent = 'Press, sponsorship, or strategic partnership — tell us what you\u2019re thinking.';
+          submitBtn.textContent = 'Send inquiry \u2192';
+          msg.placeholder = 'Tell us about your organization and what you have in mind.';
+        } else {
+          eyebrow.textContent = 'Book NLAS';
+          h1.innerHTML = 'Let\u2019s bring <span class="script normal-case font-normal">real</span> conversations to your students.';
+          sub.textContent = 'Tell us about your school and we\u2019ll respond with availability, formats, and next steps. Most sessions are booked 2\u20136 weeks in advance.';
+          submitBtn.textContent = 'Send request \u2192';
+          msg.placeholder = 'Leadership under pressure, cyberbullying, digital footprint, entrepreneurship, Q&A format, dates you have in mind\u2026';
+        }
+      }
+
+      // Read URL params
+      const params = new URLSearchParams(location.search);
+      const typeParam = params.get('type');
+      const speakerParam = params.get('speaker');
+      if (typeParam && ['book','become-speaker','partnership','other'].includes(typeParam)) {
+        selType.value = typeParam;
+      }
+      applyIntent(selType.value);
+
+      if (speakerParam && selSpeaker) {
+        // Match slug → option
+        const opt = Array.from(selSpeaker.options).find((o) => o.value.toLowerCase().replace(/[^a-z]+/g,'-').includes(speakerParam.toLowerCase().replace(/[^a-z]+/g,'-')));
+        if (opt) selSpeaker.value = opt.value;
+      }
+
+      // Show success banner on return from successful submit
+      if (params.get('sent') === '1' && successEl) {
+        successEl.classList.remove('hidden');
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      selType.addEventListener('change', (e) => applyIntent(e.target.value));
+
+      // Progressive enhancement: AJAX submit → same-page success, no redirect
+      form.addEventListener('submit', (e) => {
+        if (!form.action.includes('formsubmit.co/ajax/')) return; // only AJAX endpoint
+        e.preventDefault();
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form),
+        })
+        .then((r) => r.ok ? r.json() : Promise.reject())
+        .then(() => {
+          form.reset();
+          applyIntent(selType.value);
+          successEl && successEl.classList.remove('hidden');
+          successEl && successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          submitBtn.textContent = 'Sent \u2713';
+        })
+        .catch(() => {
+          submitBtn.textContent = 'Error \u2014 try again';
+          submitBtn.disabled = false;
+        });
+      });
+    })();
+  </script>
 </Layout>

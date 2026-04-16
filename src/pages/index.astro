@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Logo from '../components/Logo.astro';
 import SpeakerCard from '../components/SpeakerCard.astro';
 import VideoHero from '../components/VideoHero.astro';
-import { speakers } from '../content/speakers';
+import { featuredSpeakers } from '../content/speakers';
+const featured = featuredSpeakers();
 
 const topics = [
   'Leadership under pressure',
@@ -55,7 +56,7 @@ const mission = [
             Preparing the next generation to lead with <strong class="text-white">integrity</strong>, <strong class="text-white">discipline</strong>, and <strong class="text-white">digital responsibility</strong>.
           </p>
           <p class="mt-4 text-base text-[var(--color-ink-muted)] max-w-2xl leading-relaxed">
-            NLAS brings experienced Nevada based leaders into middle schools, high schools, and colleges for real, direct, and practical conversations — not a motivational speech. Applied leadership training rooted in real world experience.
+            NLAS brings experienced Nevada based leaders into K-12 schools and colleges for real, direct, and practical conversations — not a motivational speech. Applied leadership training rooted in real world experience.
           </p>
 
           <div class="mt-10 flex flex-wrap gap-3">
@@ -66,7 +67,7 @@ const mission = [
           <dl class="mt-12 grid grid-cols-3 gap-6 max-w-lg">
             <div>
               <dt class="text-xs uppercase tracking-widest text-[var(--color-ink-muted)]">Audience</dt>
-              <dd class="mt-1 text-lg font-display font-bold">MS · HS · College</dd>
+              <dd class="mt-1 text-lg font-display font-bold">K-12 · Colleges</dd>
             </div>
             <div>
               <dt class="text-xs uppercase tracking-widest text-[var(--color-ink-muted)]">Based in</dt>
@@ -103,9 +104,11 @@ const mission = [
 
   <!-- ===================== VIDEO ===================== -->
   <VideoHero
+    youtubeId="XKJizOAZdZY"
+    orientation="vertical"
     eyebrow="Watch"
-    title="See NLAS in the classroom."
-    subtitle="Footage from recent Nevada school sessions. Real audiences, real questions, real moments."
+    title="See NLAS in the field."
+    subtitle="A quick look at Nevada leaders delivering real conversations to students."
   />
 
   <!-- ===================== PRESSURES ===================== -->
@@ -165,7 +168,7 @@ const mission = [
     <div class="container-page">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
         <div>
-          <div class="eyebrow">Our speakers</div>
+          <div class="eyebrow">Featured speakers</div>
           <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight max-w-2xl">
             Not career lecturers. <span class="script">Operators.</span>
           </h2>
@@ -176,7 +179,7 @@ const mission = [
       </div>
 
       <div class="grid md:grid-cols-3 gap-14 md:gap-10 lg:gap-16 items-start">
-        {speakers.map((s) => (
+        {featured.map((s) => (
           <SpeakerCard
             name={s.name}
             role={s.shortRole}
@@ -189,7 +192,7 @@ const mission = [
       </div>
 
       <div class="mt-16 text-center">
-        <a href="/speakers" class="btn btn-ghost btn-lg">See full speaker bios →</a>
+        <a href="/speakers" class="btn btn-ghost btn-lg">See the full roster →</a>
       </div>
     </div>
   </section>
@@ -264,7 +267,7 @@ const mission = [
           </div>
           <div class="md:text-right">
             <a href="/contact" class="btn btn-gold btn-lg">Book a session →</a>
-            <p class="mt-4 text-sm text-white/70">Middle school · High school · College</p>
+            <p class="mt-4 text-sm text-white/70">K-12 · Colleges · Nevada-wide</p>
           </div>
         </div>
       </div>

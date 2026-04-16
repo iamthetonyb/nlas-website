@@ -1,51 +1,34 @@
-// Speaker data — verbatim from the NLAS brochure (pages 3–5).
+// Speaker data — verbatim bios from the NLAS brochure (pages 3–5).
+// To add a new speaker: copy a block, fill in fields, commit.
+// `featured: true`  → appears on the homepage "Featured speakers" section (cap at 3).
+// `status: 'current' | 'past'` → grouping on the full /speakers page.
+
 export interface Speaker {
   slug: string;
   name: string;
   title: string;
   role: string;
   shortRole: string;
+  /** Image path — place file at `/public/images/speakers/<slug>.jpg` & reference here */
   image: string;
   teaser: string;
   bio: string[];
   topics: string[];
   accent: 'gold' | 'blue';
+  featured?: boolean;
+  status?: 'current' | 'past';
+  /** Optional social links */
+  links?: { label: string; href: string }[];
 }
 
 export const speakers: Speaker[] = [
-  {
-    slug: 'cody-whipple',
-    name: 'Cody Whipple',
-    title: 'Cody Whipple',
-    role: 'Rancher · Communications Network Operator · Former D1 Athlete',
-    shortRole: 'Ranch + Communications · Hiko, NV',
-    image:
-      'https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?auto=format&fit=crop&w=800&q=80',
-    teaser:
-      'Raised in rural Hiko, Nevada. 25+ years operating the state\'s first digital two-way communications network. Former Virginia Tech D1 football athlete preserving Nevada\'s ranching heritage.',
-    bio: [
-      "Raised in rural Hiko, Nevada, Cody Whipple grew up working on his family's ranch, where he learned the values of hard work, resilience, and responsibility at a young age. After losing his father to cancer, one of many affected by Nevada's above ground nuclear testing era, Cody developed a deep understanding of perseverance and the importance of community.",
-      "For more than 25 years, Cody has operated Nevada's first digital two way communication network, serving first responders, school districts, construction teams, and businesses across Southern Nevada, Southern Utah, Northern Arizona, and California. His work has supported the infrastructure that keeps communities connected and safe.",
-      "In addition to leading a successful communications business, Cody manages his family ranch, preserving Nevada's ranching heritage while mentoring young people in agriculture, outdoor skills, and work ethic.",
-      "A graduate of Virginia Tech and former Division I football athlete, Cody understands discipline, teamwork, and leadership under pressure. He and his wife Dana returned to Nevada to raise their three daughters with the same values that shaped him.",
-    ],
-    topics: [
-      'Leadership through adversity',
-      'Entrepreneurship in rural and suburban communities',
-      'Career and technical education pathways',
-      'Accountability and discipline in athletics and business',
-      'Preserving heritage while building the future',
-    ],
-    accent: 'gold',
-  },
   {
     slug: 'joey-charafi',
     name: 'Joey Charafi',
     title: 'Joseph "Joey" Charafi',
     role: 'Founder of NLAS · President, Stop The Traffic Foundation · Filmmaker',
     shortRole: 'Founder, NLAS · Stop The Traffic Foundation',
-    image:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80',
+    image: '/images/speakers/joey-charafi.jpg',
     teaser:
       'Nevada-based nonprofit leader, entrepreneur, and founder of NLAS. President of Stop The Traffic Foundation and director of the feature film Vegas Traffic.',
     bio: [
@@ -65,6 +48,34 @@ export const speakers: Speaker[] = [
       'Protecting vulnerable youth',
     ],
     accent: 'blue',
+    featured: true,
+    status: 'current',
+  },
+  {
+    slug: 'cody-whipple',
+    name: 'Cody Whipple',
+    title: 'Cody Whipple',
+    role: 'Rancher · Communications Network Operator · Former D1 Athlete',
+    shortRole: 'Ranch + Communications · Hiko, NV',
+    image: '/images/speakers/cody-whipple.jpg',
+    teaser:
+      "Raised in rural Hiko, Nevada. 25+ years operating the state's first digital two-way communications network. Former Virginia Tech D1 football athlete preserving Nevada's ranching heritage.",
+    bio: [
+      "Raised in rural Hiko, Nevada, Cody Whipple grew up working on his family's ranch, where he learned the values of hard work, resilience, and responsibility at a young age. After losing his father to cancer, one of many affected by Nevada's above ground nuclear testing era, Cody developed a deep understanding of perseverance and the importance of community.",
+      "For more than 25 years, Cody has operated Nevada's first digital two way communication network, serving first responders, school districts, construction teams, and businesses across Southern Nevada, Southern Utah, Northern Arizona, and California. His work has supported the infrastructure that keeps communities connected and safe.",
+      "In addition to leading a successful communications business, Cody manages his family ranch, preserving Nevada's ranching heritage while mentoring young people in agriculture, outdoor skills, and work ethic.",
+      "A graduate of Virginia Tech and former Division I football athlete, Cody understands discipline, teamwork, and leadership under pressure. He and his wife Dana returned to Nevada to raise their three daughters with the same values that shaped him.",
+    ],
+    topics: [
+      'Leadership through adversity',
+      'Entrepreneurship in rural and suburban communities',
+      'Career and technical education pathways',
+      'Accountability and discipline in athletics and business',
+      'Preserving heritage while building the future',
+    ],
+    accent: 'gold',
+    featured: true,
+    status: 'current',
   },
   {
     slug: 'marlon-medina',
@@ -72,8 +83,7 @@ export const speakers: Speaker[] = [
     title: 'Marlon Medina',
     role: 'Founder & CMO, Golden Medina Services · Author of Behind Closed Doors',
     shortRole: 'Founder & CMO, Golden Medina Services',
-    image:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/speakers/marlon-medina.jpg',
     teaser:
       'Strategist, storyteller, and operator at the intersection of media, business, and measurable impact. Author of Behind Closed Doors.',
     bio: [
@@ -93,5 +103,12 @@ export const speakers: Speaker[] = [
       'Speaking truth with integrity',
     ],
     accent: 'gold',
+    featured: true,
+    status: 'current',
   },
 ];
+
+// Convenience selectors
+export const featuredSpeakers = () => speakers.filter((s) => s.featured !== false).slice(0, 3);
+export const currentSpeakers = () => speakers.filter((s) => (s.status ?? 'current') === 'current');
+export const pastSpeakers = () => speakers.filter((s) => s.status === 'past');
