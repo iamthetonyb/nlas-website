@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Logo from '../components/Logo.astro';
 import SpeakerCard from '../components/SpeakerCard.astro';
+import VideoHero from '../components/VideoHero.astro';
 import { speakers } from '../content/speakers';
 
 const topics = [
@@ -99,6 +100,13 @@ const mission = [
   </section>
 
   <div class="container-page"><div class="orbit-line"></div></div>
+
+  <!-- ===================== VIDEO ===================== -->
+  <VideoHero
+    eyebrow="Watch"
+    title="See NLAS in the classroom."
+    subtitle="Footage from recent Nevada school sessions. Real audiences, real questions, real moments."
+  />
 
   <!-- ===================== PRESSURES ===================== -->
   <section class="section">

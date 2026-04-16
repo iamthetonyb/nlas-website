@@ -1,8 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// Replace with your actual Formspree endpoint or keep mailto fallback.
+// ← Replace REPLACE_ME with your Formspree form ID (from formspree.io/forms dashboard)
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
-const FALLBACK_EMAIL = 'booking@nvleadership.org';
 ---
 
 <Layout
@@ -94,7 +93,6 @@ const FALLBACK_EMAIL = 'booking@nvleadership.org';
 
         <div class="mt-8 flex flex-wrap items-center gap-4">
           <button type="submit" class="btn btn-gold btn-lg">Send request →</button>
-          <a href={`mailto:${FALLBACK_EMAIL}?subject=NLAS%20Booking%20Request`} class="btn btn-ghost">Or email us directly</a>
         </div>
         <p class="mt-4 text-xs text-[var(--color-ink-muted)]">
           We respond to booking inquiries within 2 business days.
@@ -104,10 +102,10 @@ const FALLBACK_EMAIL = 'booking@nvleadership.org';
       <!-- Aside -->
       <aside class="md:col-span-4 space-y-6">
         <div class="card !rounded-[24px]">
-          <div class="eyebrow">Direct</div>
-          <a href={`mailto:${FALLBACK_EMAIL}`} class="mt-3 block text-xl font-display font-bold text-white hover:text-[var(--color-brand-gold)] transition break-words">{FALLBACK_EMAIL}</a>
+          <div class="eyebrow">Based in</div>
+          <p class="mt-3 text-xl font-display font-bold text-white">Las Vegas, Nevada</p>
           <p class="mt-3 text-sm text-[var(--color-ink-muted)]">
-            Las Vegas, Nevada · Serving Nevada schools statewide.
+            Serving Nevada schools statewide — middle school, high school, and college.
           </p>
         </div>
 
