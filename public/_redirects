@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects
+# Uncomment once both domains are attached to force apex canonical:
+# https://www.leadershipseries.org/* https://leadershipseries.org/:splat 301!
