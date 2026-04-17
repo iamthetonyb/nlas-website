@@ -5,11 +5,11 @@
  * Two modes:
  *   1. IMAGE MODE (preferred): drop a logo file at
  *        /public/images/logo/nlas-logo.png    (full logo mark + wordmark)
- *        /public/images/logo/nlas-mark.png    (square mark only — for compact/favicon-style use)
- *      PNG or SVG both work. JPG also fine — just rename the extension accordingly in LOGO_IMAGE below.
+ *        /public/images/logo/nlas-mark.png    (square mark only, for compact/favicon-style use)
+ *      PNG or SVG both work. JPG also fine. Rename the extension accordingly in LOGO_IMAGE below.
  *
  *   2. SVG FALLBACK: if those files do NOT exist, we render the stripe-block SVG we had before.
- *      (Nothing breaks if the image 404s on a page — the <img> is wrapped in a fallback-aware container.)
+ *      Nothing breaks if the image 404s on a page. The <img> is wrapped in a fallback-aware container.
  *
  * Swap the paths below to match whatever filename you drop in.
  */

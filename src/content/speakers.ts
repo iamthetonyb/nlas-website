@@ -1,4 +1,4 @@
-// Speaker data — verbatim bios from the NLAS brochure (pages 3–5).
+// Speaker data. Verbatim bios from the NLAS brochure (pages 3 to 5).
 // To add a new speaker: copy a block, fill in fields, commit.
 // `featured: true`  → appears on the homepage "Featured speakers" section (cap at 3).
 // `status: 'current' | 'past'` → grouping on the full /speakers page.
@@ -9,7 +9,7 @@ export interface Speaker {
   title: string;
   role: string;
   shortRole: string;
-  /** Image path — place file at `/public/images/speakers/<slug>.jpg` & reference here */
+  /** Image path. Place file at `/public/images/speakers/<slug>.jpg` and reference here. */
   image: string;
   teaser: string;
   bio: string[];
@@ -86,7 +86,7 @@ export const speakers: Speaker[] = [
     image: '/images/speakers/tony-benton.jpg',
     teaser:
       'Nevada based builder and technologist working at the intersection of emerging technology, brand, and accountability in an AI driven world.',
-    // EDIT ME — this bio is a first-draft template in the NLAS voice.
+    // EDIT ME. First-draft template in the NLAS voice.
     // Swap any paragraph with your own voice; the layout auto-adapts.
     bio: [
       "Tony Benton is a Nevada based builder, technologist, and digital operator focused on the intersection of emerging technology, brand, and personal accountability in an AI driven world.",

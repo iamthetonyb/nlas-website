@@ -9,8 +9,8 @@
 
 @theme {
   /* Surfaces */
-  --color-canvas: #0A1628;           /* deep navy — page background */
-  --color-canvas-lifted: #0F1E35;    /* one step lighter — nested sections */
+  --color-canvas: #0A1628;           /* deep navy. page background */
+  --color-canvas-lifted: #0F1E35;    /* one step lighter. nested sections */
   --color-canvas-deep: #050D1A;      /* footer / hero vignette */
   --color-ink: #F5F7FA;              /* primary text on dark */
   --color-ink-muted: #8B9BB4;        /* secondary text */
@@ -52,7 +52,7 @@ body {
   min-height: 100svh;
 }
 
-/* Display typography — tight negative tracking like Mastercard headlines */
+/* Display typography. Tight negative tracking like Mastercard headlines. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -72,7 +72,7 @@ h3 { line-height: 1.18; }
   color: var(--color-brand-gold);
 }
 
-/* Eyebrow label — tiny accent dot + uppercase tracking */
+/* Eyebrow label. Tiny accent dot + uppercase tracking. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -170,13 +170,13 @@ h3 { line-height: 1.18; }
 }
 .card:hover { border-color: var(--color-border-strong); }
 
-/* Hero stadium frame (40px radius — signature) */
+/* Hero stadium frame. 40px radius signature. */
 .stadium {
   border-radius: 40px;
   overflow: hidden;
 }
 
-/* Circular portrait — speaker treatment */
+/* Circular portrait. Speaker treatment. */
 .portrait {
   position: relative;
   aspect-ratio: 1 / 1;
@@ -227,7 +227,7 @@ h3 { line-height: 1.18; }
   white-space: nowrap;
 }
 
-/* Thin gold orbital divider — Mastercard-inspired arc motif */
+/* Thin gold orbital divider. Mastercard-inspired arc motif. */
 .orbit-line {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--color-brand-gold) 50%, transparent);
@@ -263,11 +263,63 @@ h3 { line-height: 1.18; }
   border-radius: 4px;
 }
 
-/* Reduced motion */
+/* ---------- Motion system ----------
+   Lightweight, native, no framework. Three layers:
+   1. Astro View Transitions (SPA-style page fade). Wired in Layout.astro.
+   2. Scroll-reveal via IntersectionObserver (observer in Layout.astro) +
+      .reveal / .reveal.is-visible classes below.
+   3. CSS hover/press micro-interactions on interactive surfaces.
+   All layers respect prefers-reduced-motion. */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+/* Stagger helpers. Add .reveal-delay-1/2/3/4 to offset children. */
+.reveal-delay-1 { transition-delay: 0.06s; }
+.reveal-delay-2 { transition-delay: 0.12s; }
+.reveal-delay-3 { transition-delay: 0.18s; }
+.reveal-delay-4 { transition-delay: 0.24s; }
+
+/* Subtle card lift on hover. Transform-only so no layout reflow. */
+.card {
+  transition: border-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+/* Portrait zoom on hover inside SpeakerCard / speaker hero blocks. */
+.portrait img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .portrait img,
+.portrait:hover img {
+  transform: scale(1.04);
+}
+
+/* Astro View Transitions fade-tuned defaults.
+   Root element fade is gentle (opacity only) so content doesn't jolt. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Reduced motion: kill everything non-essential. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .reveal { opacity: 1; transform: none; }
 }

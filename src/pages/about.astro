@@ -13,7 +13,7 @@ const beliefs = [
   },
   {
     t: 'Digital platforms are permanent records.',
-    d: 'We teach digital responsibility and cyberbullying awareness in a practical, relatable way — before a post shapes a future.',
+    d: 'We teach digital responsibility and cyberbullying awareness in plain language, before a post shapes a future.',
   },
 ];
 ---
@@ -48,7 +48,7 @@ const beliefs = [
           Social media influence. Cyberbullying. Digital permanence. Cultural noise. Entrepreneurial opportunity without guidance. Leadership visibility without mentorship.
         </p>
         <p class="mt-6 text-base text-[var(--color-ink-muted)] leading-relaxed">
-          NLAS brings experienced Nevada based leaders into educational institutions to have real, direct, and practical conversations — not a motivational speech. Applied leadership training rooted in real world experience.
+          NLAS brings working Nevada leaders into K-12 schools and colleges for real, direct, practical conversations. Not a motivational speech. Applied leadership training rooted in real world experience.
         </p>
       </div>
     </div>
@@ -65,7 +65,7 @@ const beliefs = [
 
       <div class="mt-14 grid md:grid-cols-3 gap-5">
         {beliefs.map((b, i) => (
-          <article class="card !rounded-[28px] !p-8 border-[var(--color-border-strong)]">
+          <article class={`card !rounded-[28px] !p-8 border-[var(--color-border-strong)] reveal reveal-delay-${i + 1}`}>
             <div class="text-sm font-bold text-[var(--color-brand-gold)]">{String(i+1).padStart(2,'0')}</div>
             <h3 class="mt-3 text-xl md:text-2xl font-display font-bold leading-snug">{b.t}</h3>
             <p class="mt-4 text-[var(--color-ink-muted)] leading-relaxed text-[0.98rem]">{b.d}</p>
@@ -79,13 +79,13 @@ const beliefs = [
     </div>
   </section>
 
-  <!-- Video — NLAS in the field -->
+  <!-- Video. NLAS in the field. -->
   <VideoHero
     youtubeId="XKJizOAZdZY"
     orientation="vertical"
     eyebrow="Watch"
     title="NLAS in the field."
-    subtitle="Nevada speakers delivering real, direct conversations to K-12 students and colleges."
+    subtitle="Nevada operators delivering real, direct conversations to K-12 classrooms and colleges."
   />
 
   <section class="section pt-0">

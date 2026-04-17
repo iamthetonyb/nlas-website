@@ -5,7 +5,7 @@ import { speakers, currentSpeakers, pastSpeakers } from '../content/speakers';
 const current = currentSpeakers();
 const past = pastSpeakers();
 
-// Person schema for each speaker — helps Google Knowledge Graph
+// Person schema for each speaker. Helps Google Knowledge Graph.
 const peopleLd = speakers.map((s) => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -22,7 +22,7 @@ const peopleLd = speakers.map((s) => ({
 
 <Layout
   title="Speakers"
-  description="Meet the Nevada-based operators behind NLAS. Business owners, nonprofit leaders, authors, and operators delivering applied leadership training to K-12 schools and colleges across Nevada."
+  description="Meet the Nevada operators behind NLAS. Business owners, nonprofit leaders, authors, and working professionals delivering applied leadership training to K-12 schools and colleges across Nevada."
 >
   <Fragment slot="head">
     {peopleLd.map((p) => <script type="application/ld+json" set:html={JSON.stringify(p)} />)}
@@ -36,7 +36,7 @@ const peopleLd = speakers.map((s) => ({
         Not career lecturers. <span class="script normal-case font-normal">Operators.</span>
       </h1>
       <p class="mt-8 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
-        Our speakers are business owners, nonprofit leaders, authors, and operators actively working in Nevada communities. Students respond because the message is authentic. Administrators value us because the content is responsible and solution focused.
+        Our speakers are business owners, nonprofit leaders, authors, and operators actively working in Nevada communities. Students lean in because the message is authentic. Administrators book us again because the content is responsible, age-appropriate, and solution focused.
       </p>
     </div>
   </section>
@@ -58,17 +58,17 @@ const peopleLd = speakers.map((s) => ({
     <section id={s.slug} class="section !py-16 md:!py-24 scroll-mt-24">
       <div class="container-page">
         <div class={`grid md:grid-cols-12 gap-10 md:gap-16 items-start ${idx % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
-          <div class="md:col-span-5 lg:col-span-4">
-            <div class="relative mx-auto max-w-[420px]">
+          <div class="md:col-span-5 lg:col-span-4 reveal">
+            <div class="relative mx-auto max-w-[420px] group">
               <div class="portrait ring-1 ring-[var(--color-border-strong)] shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-                <img src={s.image} alt={`${s.name} — ${s.role}`} width="800" height="800" loading="lazy" decoding="async" />
+                <img src={s.image} alt={`${s.name}, ${s.role}`} width="800" height="800" loading="lazy" decoding="async" />
               </div>
               <a href="/contact" class="portrait-satellite" aria-label={`Book a session featuring ${s.name}`}
                  style={s.accent === 'blue' ? 'background: var(--color-brand-blue); color: #fff;' : ''}>→</a>
             </div>
           </div>
 
-          <div class="md:col-span-7 lg:col-span-8">
+          <div class="md:col-span-7 lg:col-span-8 reveal reveal-delay-1">
             <div class="eyebrow">{idx === 0 ? 'Founder' : `Speaker ${String(idx + 1).padStart(2, '0')}`}</div>
             <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-display font-black uppercase leading-[0.98] tracking-tight">{s.title}</h2>
             <p class="mt-4 text-lg text-[var(--color-brand-gold)]">{s.role}</p>
@@ -121,8 +121,8 @@ const peopleLd = speakers.map((s) => ({
         </h2>
 
         <div class="mt-12 grid md:grid-cols-3 gap-10 md:gap-8">
-          {past.map((s) => (
-            <article class="text-center">
+          {past.map((s, i) => (
+            <article class={`text-center reveal reveal-delay-${(i % 3) + 1}`}>
               <div class="relative mx-auto w-[220px]">
                 <div class="portrait ring-1 ring-[var(--color-border)] opacity-90">
                   <img src={s.image} alt={s.name} width="440" height="440" loading="lazy" />
@@ -158,7 +158,7 @@ const peopleLd = speakers.map((s) => ({
               Think you've got a <span class="script">story</span> Nevada students need to hear?
             </h2>
             <p class="mt-6 text-[var(--color-ink)]/85 max-w-2xl">
-              NLAS is always looking for Nevada-based operators — founders, authors, athletes, first responders, tradespeople, and community leaders — whose lived experience can shape the next generation. If that's you, we'd like to talk.
+              NLAS is always looking for Nevada-based operators. Founders, authors, athletes, first responders, tradespeople, and community leaders whose lived experience can shape the next generation. If that sounds like you, we want to talk.
             </p>
           </div>
           <div class="md:col-span-5 flex md:justify-end">

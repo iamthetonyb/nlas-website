@@ -3,18 +3,18 @@ import Layout from '../layouts/Layout.astro';
 import { speakers } from '../content/speakers';
 
 /**
- * Form backend — FormSubmit.co
+ * Form backend. FormSubmit.co.
  * -----------------------------------------
  * FormSubmit is free, unlimited, and requires NO signup.
- * Just replace `YOUR_EMAIL` below with the booking email.
+ * The booking email lives in FORM_ENDPOINT below.
  * On first submission, FormSubmit sends ONE confirmation email
- * to that address — click the confirm link and it's active forever.
+ * to that address. Click the confirm link and it is active forever.
  *
- * After the first submit they'll give you a random ID like `abc123xyz`
- * so your email never appears publicly. Swap it in at that point.
+ * After the first submit they will give you a random ID like `abc123xyz`
+ * so the address never appears publicly. Swap it in at that point.
  */
 const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
-// ↑ FormSubmit sends ONE confirmation email to this address on first submit — click the link to activate.
+// FormSubmit sends ONE confirmation email to this address on first submit. Click the link to activate.
 // After confirmation, swap this for the random ID FormSubmit gives you so the email stays private.
 ---
 
@@ -30,7 +30,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         Let's bring <span class="script normal-case font-normal">real</span> conversations to your students.
       </h1>
       <p class="mt-8 text-lg text-[var(--color-ink)]/85 max-w-2xl leading-relaxed" id="intent-sub">
-        Tell us about your school and we'll respond with availability, formats, and next steps. Most sessions are booked 2–6 weeks in advance.
+        Tell us about your school. We respond with availability, formats, and next steps. Most sessions book 2 to 6 weeks out.
       </p>
     </div>
   </section>
@@ -45,7 +45,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         method="POST"
         aria-label="Contact form"
       >
-        <!-- Inquiry type — dynamic based on ?type= URL param -->
+        <!-- Inquiry type. Dynamic based on ?type= URL param. -->
         <div class="mb-6">
           <label class="block">
             <span class="text-sm font-semibold">I'm reaching out about</span>
@@ -152,7 +152,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
 
         <!-- Success toast (shown after successful submit) -->
         <div id="form-success" class="mt-6 p-4 rounded-2xl border border-[var(--color-brand-gold)]/40 bg-[var(--color-brand-gold)]/10 text-sm hidden">
-          <strong class="text-[var(--color-brand-gold)]">Sent.</strong> Thanks — we'll be in touch within 2 business days.
+          <strong class="text-[var(--color-brand-gold)]">Sent.</strong> Thanks. We will be in touch within 2 business days.
         </div>
       </form>
 
@@ -169,8 +169,8 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         <div class="card !rounded-[24px]">
           <div class="eyebrow">Formats</div>
           <ul class="mt-4 space-y-3 text-sm text-[var(--color-ink)]/90">
-            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Single-speaker keynote (30–45 min)</li>
-            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Full NLAS panel + Q&amp;A (60–90 min)</li>
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Single-speaker keynote, 30 to 45 min</li>
+            <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Full NLAS panel + Q&amp;A, 60 to 90 min</li>
             <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Multi-period classroom rotations</li>
             <li class="flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-gold)]"></span> Assembly-scale presentation</li>
           </ul>
@@ -179,7 +179,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         <div class="card !rounded-[24px] border-[var(--color-brand-gold)]/40">
           <div class="eyebrow">What you'll get</div>
           <p class="mt-3 text-sm leading-relaxed text-[var(--color-ink)]/90">
-            Age-appropriate content. Meaningful Q&amp;A. Nevada operators speaking from lived experience — not theory. Content that is responsible and solution focused.
+            Age-appropriate content. Meaningful Q&amp;A. Nevada operators speaking from lived experience. Not theory. Responsible and solution focused.
           </p>
         </div>
       </aside>
@@ -199,36 +199,36 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
       const submitBtn = document.getElementById('submit-btn');
       const successEl = document.getElementById('form-success');
 
-      // Apply intent 2 visible copy + conditional fields
+      // Apply intent to visible copy + conditional fields.
       function applyIntent(type) {
-        // Toggle [data-show] fields
+        // Toggle [data-show] fields.
         document.querySelectorAll('[data-show]').forEach((el) => {
           const shows = el.getAttribute('data-show').split(/\s+/);
           el.style.display = shows.includes(type) ? '' : 'none';
-          // Disable required fields that are hidden
+          // Disable required fields that are hidden.
           el.querySelectorAll('input, select, textarea').forEach((i) => {
             if (el.style.display === 'none') i.removeAttribute('required');
           });
         });
 
-        // Copy + CTA by intent
+        // Copy + CTA by intent.
         if (type === 'become-speaker') {
           eyebrow.textContent = 'Become a speaker';
           h1.innerHTML = 'Think you\u2019ve got a <span class="script normal-case font-normal">story</span> Nevada students need?';
           sub.textContent = 'Tell us who you are and what you bring. NLAS is always looking for Nevada-based operators with real, lived experience.';
-          submitBtn.textContent = 'Submit application \u2192';
+          submitBtn.textContent = 'Submit my application \u2192';
           msg.placeholder = 'Why you? What would your message to students be? Any past speaking experience?';
         } else if (type === 'partnership') {
           eyebrow.textContent = 'Partnership';
           h1.innerHTML = 'Let\u2019s build something <span class="script normal-case font-normal">together.</span>';
-          sub.textContent = 'Press, sponsorship, or strategic partnership — tell us what you\u2019re thinking.';
-          submitBtn.textContent = 'Send inquiry \u2192';
+          sub.textContent = 'Press, sponsorship, or strategic partnership. Tell us what you are thinking.';
+          submitBtn.textContent = 'Send my inquiry \u2192';
           msg.placeholder = 'Tell us about your organization and what you have in mind.';
         } else {
           eyebrow.textContent = 'Book NLAS';
           h1.innerHTML = 'Let\u2019s bring <span class="script normal-case font-normal">real</span> conversations to your students.';
-          sub.textContent = 'Tell us about your school and we\u2019ll respond with availability, formats, and next steps. Most sessions are booked 2\u20136 weeks in advance.';
-          submitBtn.textContent = 'Send request \u2192';
+          sub.textContent = 'Tell us about your school. We respond with availability, formats, and next steps. Most sessions book 2 to 6 weeks out.';
+          submitBtn.textContent = 'Send my request \u2192';
           msg.placeholder = 'Leadership under pressure, cyberbullying, digital footprint, entrepreneurship, Q&A format, dates you have in mind\u2026';
         }
       }
@@ -276,7 +276,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
           submitBtn.textContent = 'Sent \u2713';
         })
         .catch(() => {
-          submitBtn.textContent = 'Error \u2014 try again';
+          submitBtn.textContent = 'Error. Try again.';
           submitBtn.disabled = false;
         });
       });

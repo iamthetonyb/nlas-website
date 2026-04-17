@@ -16,11 +16,11 @@ const topics = [
 ];
 
 const whySchools = [
-  'Deliver age appropriate, engaging presentations tailored to middle school, high school, and collegiate audiences',
-  'Address cyberbullying and digital footprint issues in a practical, relatable way',
-  'Connect students to entrepreneurship, career and technical pathways, and real Nevada success stories',
-  'Reinforce character development, discipline, and community responsibility',
-  'Provide meaningful Q and A sessions that encourage student engagement',
+  'Age-appropriate sessions built for K-12 classrooms and college lecture halls',
+  'Cyberbullying and digital footprint handled in plain language students actually hear',
+  'Live Nevada founders, authors, and operators students can picture becoming',
+  'Character, discipline, and community responsibility grounded in real jobs and real stakes',
+  'Open Q&A that gets teenagers asking the questions they would not ask a counselor',
 ];
 
 const mission = [
@@ -32,7 +32,7 @@ const mission = [
 
 <Layout
   title="Nevada Leadership & Accountability Series"
-  description="Preparing the next generation of Nevada students to lead with integrity, discipline, and digital responsibility — real Nevada leaders, real conversations, applied leadership training rooted in real world experience."
+  description="Nevada operators teaching K-12 and college students what integrity, discipline, and digital responsibility look like in practice. Real voices. Real conversations. Not a motivational speech."
 >
   <!-- ===================== HERO ===================== -->
   <section class="relative overflow-hidden">
@@ -56,11 +56,11 @@ const mission = [
             Preparing the next generation to lead with <strong class="text-white">integrity</strong>, <strong class="text-white">discipline</strong>, and <strong class="text-white">digital responsibility</strong>.
           </p>
           <p class="mt-4 text-base text-[var(--color-ink-muted)] max-w-2xl leading-relaxed">
-            NLAS brings experienced Nevada based leaders into K-12 schools and colleges for real, direct, and practical conversations — not a motivational speech. Applied leadership training rooted in real world experience.
+            NLAS brings working Nevada leaders into K-12 schools and colleges for direct, practical conversations. Not a motivational speech. Applied leadership training rooted in real world experience.
           </p>
 
           <div class="mt-10 flex flex-wrap gap-3">
-            <a href="/contact" class="btn btn-gold btn-lg">Bring NLAS to Your School →</a>
+            <a href="/contact" class="btn btn-gold btn-lg">Bring NLAS to my school →</a>
             <a href="/speakers" class="btn btn-ghost btn-lg">Meet the speakers</a>
           </div>
 
@@ -114,18 +114,18 @@ const mission = [
   <!-- ===================== PRESSURES ===================== -->
   <section class="section">
     <div class="container-page grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-5">
+      <div class="md:col-span-5 reveal">
         <div class="eyebrow">The reality</div>
         <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
           Students today face pressures <span class="script">previous</span> generations did not.
         </h2>
       </div>
-      <div class="md:col-span-7 md:pt-4">
+      <div class="md:col-span-7 md:pt-4 reveal reveal-delay-1">
         <p class="text-lg leading-relaxed text-[var(--color-ink)]/85">
           Social media influence. Cyberbullying. Digital permanence. Cultural noise. Entrepreneurial opportunity without guidance. Leadership visibility without mentorship.
         </p>
         <p class="mt-6 text-base text-[var(--color-ink-muted)] leading-relaxed">
-          The Nevada Leadership &amp; Accountability Series exists to equip middle school, high school, and college students with the mindset and skills necessary to lead in today's rapidly evolving world.
+          NLAS gives K-12 and college students the mindset, language, and habits they need to lead in a world their parents and teachers did not grow up in.
         </p>
       </div>
     </div>
@@ -142,20 +142,20 @@ const mission = [
           </h2>
         </div>
         <p class="max-w-md text-[var(--color-ink-muted)]">
-          NLAS brings experienced Nevada based leaders into educational institutions to speak on the things students actually navigate every day.
+          Working Nevada leaders on the things students actually face at school, online, and in their first real jobs.
         </p>
       </div>
 
       <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {topics.map((t, i) => (
-          <li class="card flex items-start gap-4">
+          <li class={`card flex items-start gap-4 reveal reveal-delay-${(i % 4) + 1}`}>
             <span class="shrink-0 w-9 h-9 rounded-full bg-[var(--color-brand-blue)] text-white font-display font-bold flex items-center justify-center text-sm">{String(i+1).padStart(2,'0')}</span>
             <span class="text-[1.02rem] leading-snug">{t}</span>
           </li>
         ))}
       </ul>
 
-      <div class="mt-12 p-8 md:p-10 rounded-[40px] border border-[var(--color-border-strong)] bg-gradient-to-br from-[var(--color-brand-blue-lo)]/40 to-transparent">
+      <div class="reveal mt-12 p-8 md:p-10 rounded-[40px] border border-[var(--color-border-strong)] bg-gradient-to-br from-[var(--color-brand-blue-lo)]/40 to-transparent">
         <p class="text-xl md:text-3xl font-display font-bold leading-tight">
           This is not a motivational speech. <span class="text-[var(--color-brand-gold)]">It is applied leadership training rooted in real world experience.</span>
         </p>
@@ -174,12 +174,13 @@ const mission = [
           </h2>
         </div>
         <p class="max-w-md text-[var(--color-ink-muted)]">
-          Business owners, nonprofit leaders, authors, and operators actively working in Nevada communities. The message lands because it's authentic.
+          Business owners, nonprofit leaders, authors, and operators working in Nevada right now. The message lands because the people telling it are still in the arena.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-14 md:gap-10 lg:gap-16 items-start">
-        {featured.map((s) => (
+        {featured.map((s, i) => (
+          <div class={`reveal reveal-delay-${i + 1}`}>
           <SpeakerCard
             name={s.name}
             role={s.shortRole}
@@ -188,6 +189,7 @@ const mission = [
             blurb={s.teaser}
             accent={s.accent}
           />
+          </div>
         ))}
       </div>
 
@@ -206,14 +208,14 @@ const mission = [
           Content that is responsible and <span class="script">solution focused.</span>
         </h2>
         <p class="mt-6 text-[var(--color-ink-muted)] leading-relaxed">
-          Students respond because the message is authentic. Administrators value us because the content is responsible and solution focused.
+          Students lean in because the message is authentic. Administrators book us again because the content is responsible, age-appropriate, and solution focused.
         </p>
         <a href="/contact" class="mt-8 btn btn-primary btn-lg inline-flex">Partner with NLAS →</a>
       </div>
 
       <ul class="md:col-span-7 space-y-3">
-        {whySchools.map((w) => (
-          <li class="card flex items-start gap-4">
+        {whySchools.map((w, i) => (
+          <li class={`card flex items-start gap-4 reveal reveal-delay-${(i % 4) + 1}`}>
             <span class="shrink-0 mt-1 w-6 h-6 rounded-full border-2 border-[var(--color-brand-gold)] flex items-center justify-center text-[var(--color-brand-gold)] text-xs">✓</span>
             <span class="leading-relaxed">{w}</span>
           </li>
@@ -233,8 +235,8 @@ const mission = [
       </div>
 
       <div class="mt-14 grid md:grid-cols-3 gap-5">
-        {mission.map((m) => (
-          <div class="card !rounded-[28px] !p-8 border-[var(--color-border-strong)]">
+        {mission.map((m, i) => (
+          <div class={`card !rounded-[28px] !p-8 border-[var(--color-border-strong)] reveal reveal-delay-${i + 1}`}>
             <p class="text-lg md:text-xl font-display font-semibold leading-snug">{m}</p>
           </div>
         ))}
