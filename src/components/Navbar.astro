@@ -56,10 +56,45 @@ const isActive = (href: string) =>
 </header>
 
 <script>
-  const btn = document.getElementById('nav-toggle');
-  const drawer = document.getElementById('nav-drawer');
-  btn?.addEventListener('click', () => {
-    const open = drawer?.classList.toggle('hidden') === false;
-    btn.setAttribute('aria-expanded', String(open));
-  });
+  // Bundled module script (deduplicated by Astro). Registers astro:page-load ONCE;
+  // the listener fires on initial load AND every SPA nav, re-binding the toggle to
+  // the new DOM nodes. is:inline alone is NOT enough in Astro 5 — identical inline
+  // scripts are skipped on subsequent swaps unless marked data-astro-rerun.
+  function initNav() {
+    const btn = document.getElementById('nav-toggle');
+    const drawer = document.getElementById('nav-drawer');
+    if (!btn || !drawer) return;
+
+    const close = () => {
+      drawer.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+    const open = () => {
+      drawer.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+    };
+
+    btn.addEventListener('click', () => {
+      drawer.classList.contains('hidden') ? open() : close();
+    });
+
+    // Close drawer when a link inside it is activated (same-page hash links won't fire before-swap).
+    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+
+    // Escape closes drawer + returns focus to the toggle (a11y).
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !drawer.classList.contains('hidden')) {
+        close();
+        btn.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+
+    // On SPA nav, close drawer + remove the keydown listener so we don't leak.
+    document.addEventListener('astro:before-swap', () => {
+      close();
+      document.removeEventListener('keydown', onKey);
+    }, { once: true });
+  }
+  document.addEventListener('astro:page-load', initNav);
 </script>

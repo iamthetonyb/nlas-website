@@ -186,8 +186,10 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
     </div>
   </section>
 
-  <!-- ---- Form UX: intent switching + URL prefill ---- -->
-  <script is:inline>
+  <!-- ---- Form UX: intent switching + URL prefill ----
+       data-astro-rerun = inline script re-executes on every ClientRouter swap.
+       Without it, returning to /contact via SPA nav would leave the form unbound. -->
+  <script is:inline data-astro-rerun>
     (function () {
       const form = document.getElementById('contact-form');
       const selType = document.getElementById('inquiry_type');
@@ -248,10 +250,14 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         if (opt) selSpeaker.value = opt.value;
       }
 
+      // Respect prefers-reduced-motion when scrolling to feedback.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const scrollOpts = { behavior: reduce ? 'auto' : 'smooth', block: 'center' };
+
       // Show success banner on return from successful submit
       if (params.get('sent') === '1' && successEl) {
         successEl.classList.remove('hidden');
-        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        successEl.scrollIntoView(scrollOpts);
       }
 
       selType.addEventListener('change', (e) => applyIntent(e.target.value));
@@ -272,7 +278,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
           form.reset();
           applyIntent(selType.value);
           successEl && successEl.classList.remove('hidden');
-          successEl && successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          successEl && successEl.scrollIntoView(scrollOpts);
           submitBtn.textContent = 'Sent \u2713';
         })
         .catch(() => {

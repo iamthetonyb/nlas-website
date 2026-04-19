@@ -137,6 +137,8 @@ const pageLd = schemaType && schemaType !== 'WebSite' && schemaType !== 'Organiz
     <!-- iMessage / Apple (Apple reads og + apple-mobile-web-app tags) -->
     <meta name="apple-mobile-web-app-title" content="NLAS" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Modern equivalent. Chrome 134+ deprecated apple-mobile-web-app-capable; ship both for now. -->
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="application-name" content="NLAS" />
 
@@ -156,7 +158,7 @@ const pageLd = schemaType && schemaType !== 'WebSite' && schemaType !== 'Organiz
     <!-- Performance hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Archivo:wght@500;600;700;800;900&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -166,43 +168,67 @@ const pageLd = schemaType && schemaType !== 'WebSite' && schemaType !== 'Organiz
     <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
     {pageLd && <script type="application/ld+json" set:html={JSON.stringify(pageLd)} />}
 
-    <!-- Astro 5 View Transitions. Gives SPA-style cross-fade navigation, zero framework dependency. -->
-    <ClientRouter fallback="swap" />
+    <!-- Astro 5 View Transitions. SPA-style cross-fade navigation, zero framework dependency.
+         fallback="animate" = JS-simulated cross-fade for browsers w/o native View Transitions API (Firefox, Safari ≤17). -->
+    <ClientRouter fallback="animate" />
 
     <slot name="head" />
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] btn btn-gold">Skip to content</a>
     <Navbar />
-    <main id="main">
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer />
 
-    <!-- Scroll-reveal observer. Adds .is-visible to any element with .reveal when it enters the viewport. -->
-    <script is:inline>
-      (function () {
-        const init = () => {
-          const els = document.querySelectorAll('.reveal:not(.is-visible)');
-          if (!els.length) return;
-          if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            els.forEach((el) => el.classList.add('is-visible'));
-            return;
-          }
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
-                io.unobserve(e.target);
-              }
-            });
-          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-          els.forEach((el) => io.observe(el));
-        };
-        init();
-        // Re-run after Astro View Transitions swap in new DOM.
-        document.addEventListener('astro:page-load', init);
-      })();
+    <!-- Scroll-reveal observer. Adds .is-visible to .reveal elements entering the viewport.
+         Bundled module script (NOT is:inline). Astro 5 deduplicates module scripts across
+         ClientRouter swaps, so this registers astro:page-load ONCE — the listener fires on
+         initial load AND every SPA navigation. Each fire creates a fresh IO and disconnects
+         the prior one on the next before-swap to prevent observer leaks across pages. -->
+    <script>
+      let activeIO: IntersectionObserver | null = null;
+      function initReveal() {
+        if (activeIO) { activeIO.disconnect(); activeIO = null; }
+        const els = document.querySelectorAll<HTMLElement>('.reveal:not(.is-visible)');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          els.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+        activeIO = io;
+      }
+      document.addEventListener('astro:page-load', initReveal);
+      // Tear down before the DOM gets swapped — IO holds strong refs to its targets.
+      document.addEventListener('astro:before-swap', () => {
+        if (activeIO) { activeIO.disconnect(); activeIO = null; }
+      });
+
+      // Focus management for SPA navigation. After a ClientRouter swap, browsers
+      // do NOT move focus the way they do on a full page load, so keyboard and
+      // screen-reader users get stranded on the old element. Move focus to the
+      // new main landmark on every nav (but skip the very first page-load so we
+      // don't steal focus from the URL bar / autofocus targets on hard refresh).
+      let firstLoad = true;
+      document.addEventListener('astro:page-load', () => {
+        if (firstLoad) { firstLoad = false; return; }
+        const main = document.getElementById('main');
+        if (main) {
+          main.focus({ preventScroll: true });
+          // Hint screen readers without speaking the whole landmark.
+          window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        }
+      });
     </script>
   </body>
 </html>
