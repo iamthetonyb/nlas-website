@@ -9,7 +9,7 @@ export interface Speaker {
   title: string;
   role: string;
   shortRole: string;
-  /** Image path. Place file at `/public/images/speakers/<slug>.jpg` and reference here. */
+  /** Image path. Place file at `/public/images/speakers/<slug>.*` and reference here. */
   image: string;
   teaser: string;
   bio: string[];
@@ -28,7 +28,7 @@ export const speakers: Speaker[] = [
     title: 'Joseph "Joey" Charafi',
     role: 'Founder of NLAS · President, Stop The Traffic Foundation · Filmmaker',
     shortRole: 'Founder, NLAS · Stop The Traffic Foundation',
-    image: '/images/speakers/joey-charafi.jpg',
+    image: '/images/speakers/joey-charafi.svg',
     teaser:
       'Nevada-based nonprofit leader, entrepreneur, and founder of NLAS. President of Stop The Traffic Foundation and director of the feature film Vegas Traffic.',
     bio: [
@@ -57,7 +57,7 @@ export const speakers: Speaker[] = [
     title: 'Cody Whipple',
     role: 'Rancher · Communications Network Operator · Former D1 Athlete',
     shortRole: 'Ranch + Communications · Hiko, NV',
-    image: '/images/speakers/cody-whipple.jpg',
+    image: '/images/speakers/cody-whipple.svg',
     teaser:
       "Raised in rural Hiko, Nevada. 25+ years operating the state's first digital two-way communications network. Former Virginia Tech D1 football athlete preserving Nevada's ranching heritage.",
     bio: [
@@ -83,7 +83,7 @@ export const speakers: Speaker[] = [
     title: 'Tony Benton',
     role: 'Builder · Technologist · Digital Operator',
     shortRole: 'Builder · Technologist',
-    image: '/images/speakers/tony-benton.jpg',
+    image: '/images/speakers/tony-benton.svg',
     teaser:
       'Nevada based builder and technologist working at the intersection of emerging technology, brand, and accountability in an AI driven world.',
     // EDIT ME. First-draft template in the NLAS voice.
@@ -115,7 +115,7 @@ export const speakers: Speaker[] = [
     title: 'Marlon Medina',
     role: 'Founder & CMO, Golden Medina Services · Author of Behind Closed Doors',
     shortRole: 'Founder & CMO, Golden Medina Services',
-    image: '/images/speakers/marlon-medina.jpg',
+    image: '/images/speakers/marlon-medina.svg',
     teaser:
       'Strategist, storyteller, and operator at the intersection of media, business, and measurable impact. Author of Behind Closed Doors.',
     bio: [

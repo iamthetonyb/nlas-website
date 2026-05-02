@@ -1,275 +1,241 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Logo from '../components/Logo.astro';
 import SpeakerCard from '../components/SpeakerCard.astro';
 import VideoHero from '../components/VideoHero.astro';
 import { featuredSpeakers } from '../content/speakers';
+import { pillars, partners, talks } from '../content/site';
+
 const featured = featuredSpeakers();
-
-const topics = [
-  'Leadership under pressure',
-  'Personal accountability',
-  'Digital responsibility and cyberbullying',
-  'Entrepreneurship and career pathways',
-  'Integrity in athletics, business, and public life',
-  'Building credibility in a world driven by attention',
+const stats = [
+  { n: 'K-12', l: 'Middle, high, college' },
+  { n: '45-60', l: 'Minute assemblies' },
+  { n: '1 day', l: 'Quote turnaround' },
+  { n: 'NV', l: 'Built for Nevada schools' },
 ];
 
-const whySchools = [
-  'Age-appropriate sessions built for K-12 classrooms and college lecture halls',
-  'Cyberbullying and digital footprint handled in plain language students actually hear',
-  'Live Nevada founders, authors, and operators students can picture becoming',
-  'Character, discipline, and community responsibility grounded in real jobs and real stakes',
-  'Open Q&A that gets teenagers asking the questions they would not ask a counselor',
-];
-
-const mission = [
-  'We believe leadership is not about status. It is about responsibility.',
-  'We believe entrepreneurship is not about fame. It is about value creation.',
-  'We believe digital platforms are not toys. They are permanent records.',
+const steps = [
+  {
+    n: '01',
+    t: 'Tell us your dates',
+    b: 'Send grade level, audience size, and two or three possible dates. We reply inside one business day.',
+  },
+  {
+    n: '02',
+    t: 'We shape the session',
+    b: 'Your administrator approves the topic, speaker, and outline. We adjust for your community before anything ships.',
+  },
+  {
+    n: '03',
+    t: 'We show up ready',
+    b: 'Assembly, Q&A, classroom rotations, or parent night. Clean content, clear expectations, no surprise pitch.',
+  },
 ];
 ---
 
 <Layout
   title="Nevada Leadership & Accountability Series"
-  description="Nevada operators teaching K-12 and college students what integrity, discipline, and digital responsibility look like in practice. Real voices. Real conversations. Not a motivational speech."
+  description="Real Nevada voices in Nevada schools. Leadership, accountability, digital responsibility, cyberbullying prevention, and future-of-work education for middle school, high school, and college audiences."
 >
-  <!-- ===================== HERO ===================== -->
-  <section class="relative overflow-hidden">
-    <!-- Ambient blue gradient wash -->
-    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
-      <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[1100px] rounded-full blur-3xl opacity-30" style="background: radial-gradient(closest-side, #2B5DA8 0%, transparent 70%);"></div>
-      <div class="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-20" style="background: radial-gradient(closest-side, #E8B547 0%, transparent 70%);"></div>
+  <section class="hero-section section overflow-hidden">
+    <div class="topo" aria-hidden="true"></div>
+    <div class="container-page relative">
+      <div class="eyebrow reveal">Nevada Leadership &amp; Accountability Series · Est. 2024</div>
+      <h1 class="display balance mt-10 max-w-[15ch] reveal reveal-delay-1">
+        Real Nevada <span class="script">voices</span> in Nevada schools.
+      </h1>
+
+      <div class="hero-foot mt-12 md:mt-16">
+        <p class="pretty text-lg md:text-xl leading-relaxed text-[var(--color-ink-muted)] max-w-2xl reveal reveal-delay-2">
+          A school-safe speaker series for middle school, high school, and college audiences. Leadership, accountability, and online safety taught by operators who live and build in Nevada.
+        </p>
+        <div class="hero-cta reveal reveal-delay-3">
+          <a href="/contact" class="btn btn-gold btn-lg">Book a session →</a>
+          <a href="/speakers" class="btn btn-ghost btn-lg">Meet the speakers</a>
+        </div>
+      </div>
+
+      <dl class="stats-grid mt-20 md:mt-24 reveal reveal-delay-4">
+        {stats.map((s) => (
+          <div>
+            <dt class="stat-num">{s.n}</dt>
+            <dd class="stat-label">{s.l}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
+  </section>
 
-    <div class="container-page relative pt-14 md:pt-24 pb-20 md:pb-32">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
-        <div class="md:col-span-7">
-          <div class="eyebrow">Nevada-based · For students</div>
-          <h1 class="mt-6 text-[2.75rem] sm:text-5xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.95] tracking-tight">
-            Nevada<br/>
-            Leadership &amp;<br/>
-            Accountability<br/>
-            <span class="script normal-case font-normal text-[0.9em]">Series</span>
-          </h1>
-          <p class="mt-8 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-2xl leading-relaxed">
-            Preparing the next generation to lead with <strong class="text-white">integrity</strong>, <strong class="text-white">discipline</strong>, and <strong class="text-white">digital responsibility</strong>.
-          </p>
-          <p class="mt-4 text-base text-[var(--color-ink-muted)] max-w-2xl leading-relaxed">
-            NLAS brings working Nevada leaders into K-12 schools and colleges for direct, practical conversations. Not a motivational speech. Applied leadership training rooted in real world experience.
-          </p>
-
-          <div class="mt-10 flex flex-wrap gap-3">
-            <a href="/contact" class="btn btn-gold btn-lg">Bring NLAS to my school →</a>
-            <a href="/speakers" class="btn btn-ghost btn-lg">Meet the speakers</a>
-          </div>
-
-          <dl class="mt-12 grid grid-cols-3 gap-6 max-w-lg">
-            <div>
-              <dt class="text-xs uppercase tracking-widest text-[var(--color-ink-muted)]">Audience</dt>
-              <dd class="mt-1 text-lg font-display font-bold">K-12 · Colleges</dd>
-            </div>
-            <div>
-              <dt class="text-xs uppercase tracking-widest text-[var(--color-ink-muted)]">Based in</dt>
-              <dd class="mt-1 text-lg font-display font-bold">Nevada</dd>
-            </div>
-            <div>
-              <dt class="text-xs uppercase tracking-widest text-[var(--color-ink-muted)]">Format</dt>
-              <dd class="mt-1 text-lg font-display font-bold">Live + Q&amp;A</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div class="md:col-span-5">
-          <div class="stadium aspect-[4/5] bg-gradient-to-br from-[var(--color-brand-blue-lo)] via-[var(--color-canvas-lifted)] to-black relative shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-            <div class="absolute inset-0 flex items-center justify-center p-8">
-              <Logo variant="full" />
-            </div>
-            <!-- Diagonal stripe art accent -->
-            <svg aria-hidden="true" class="absolute inset-0 w-full h-full opacity-20 mix-blend-screen" viewBox="0 0 400 500">
-              <defs>
-                <pattern id="heroDiag" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="14" stroke="#3D78C9" stroke-width="2"/>
-                </pattern>
-              </defs>
-              <rect width="400" height="500" fill="url(#heroDiag)"/>
-            </svg>
-          </div>
-        </div>
+  <section class="section section-tight pt-0">
+    <div class="container-page">
+      <div class="prototype-note reveal">
+        <div class="eyebrow">The reality</div>
+        <p class="pretty">
+          Social media influence. Cyberbullying. Digital permanence. Cultural noise. Entrepreneurial opportunity without guidance. Leadership visibility without mentorship.
+          <span>NLAS gives students language and habits for the world they are actually growing up in.</span>
+        </p>
       </div>
     </div>
   </section>
 
-  <div class="container-page"><div class="orbit-line"></div></div>
+  <div class="ticker" aria-label="NLAS focus areas">
+    <div class="ticker-track">
+      {[...['Leadership', 'Accountability', 'Online Safety', 'Stepping Up', 'Digital Footprint', 'Ownership', 'Real Work', 'Nevada Built', 'Leadership', 'Accountability', 'Online Safety', 'Stepping Up', 'Digital Footprint', 'Ownership', 'Real Work', 'Nevada Built']].map((t) => (
+        <>
+          <span>{t}</span>
+          <span class="ticker-dot" aria-hidden="true"></span>
+        </>
+      ))}
+    </div>
+  </div>
 
-  <!-- ===================== VIDEO ===================== -->
+  <section class="section">
+    <div class="container-page">
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">What we teach</div>
+          <h2 class="mt-5 balance">Four pillars. One <span class="script">standard</span> you hold yourself to.</h2>
+        </div>
+        <p class="lede pretty reveal reveal-delay-1">
+          Every session is built on the same foundation: age-appropriate, district-vetted, and shaped by the school before we arrive.
+        </p>
+      </div>
+
+      <div class="pillar-grid">
+        {pillars.map((p, i) => (
+          <article class={`pillar reveal reveal-delay-${(i % 4) + 1}`}>
+            <div class="num">{p.num}</div>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+              <ul>
+                {p.topics.map((t) => <li class="chip">{t}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <VideoHero
     youtubeId="XKJizOAZdZY"
     orientation="vertical"
     eyebrow="Watch"
     title="See NLAS in the field."
-    subtitle="A quick look at Nevada leaders delivering real conversations to students."
+    subtitle="Nevada operators delivering real, direct conversations to students."
   />
 
-  <!-- ===================== PRESSURES ===================== -->
-  <section class="section">
-    <div class="container-page grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-5 reveal">
-        <div class="eyebrow">The reality</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
-          Students today face pressures <span class="script">previous</span> generations did not.
-        </h2>
+  <section class="section light">
+    <div class="container-page">
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">Talks &amp; assemblies</div>
+          <h2 class="mt-5 balance">See what an <span class="script">NLAS hour</span> actually looks like.</h2>
+        </div>
+        <p class="lede pretty reveal reveal-delay-1">
+          Short, practical formats for assemblies, breakouts, career days, and parent-facing evenings.
+        </p>
       </div>
-      <div class="md:col-span-7 md:pt-4 reveal reveal-delay-1">
-        <p class="text-lg leading-relaxed text-[var(--color-ink)]/85">
-          Social media influence. Cyberbullying. Digital permanence. Cultural noise. Entrepreneurial opportunity without guidance. Leadership visibility without mentorship.
-        </p>
-        <p class="mt-6 text-base text-[var(--color-ink-muted)] leading-relaxed">
-          NLAS gives K-12 and college students the mindset, language, and habits they need to lead in a world their parents and teachers did not grow up in.
-        </p>
+
+      <div class="talk-preview-grid">
+        <a href="/talks" class="reel-frame reveal" aria-label="View NLAS talks and assembly formats">
+          <div class="reel-title">{talks[0].title}</div>
+          <div class="reel-play-btn" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"></path></svg>
+          </div>
+          <div class="reel-meta"><span>{talks[0].meta}</span><span>{talks[0].duration}</span></div>
+        </a>
+
+        <div class="reel-thumbs reveal reveal-delay-1">
+          {talks.slice(1).map((t) => (
+            <a class="reel-thumb" href="/talks">
+              <div class="thumb" aria-hidden="true"></div>
+              <div>
+                <div class="info-title">{t.title}</div>
+                <div class="info-meta">{t.meta}</div>
+              </div>
+              <div class="dur">{t.duration}</div>
+            </a>
+          ))}
+          <a href="/talks" class="btn btn-ghost justify-between">See all talks →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== TOPICS ===================== -->
-  <section id="topics" class="section relative">
+  <section id="speakers" class="section">
     <div class="container-page">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-        <div>
-          <div class="eyebrow">Topics we cover</div>
-          <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight max-w-2xl">
-            Real, direct, practical conversations.
-          </h2>
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">Current speakers</div>
+          <h2 class="mt-5 balance">Operators, not <span class="script">keynote tourists</span>.</h2>
         </div>
-        <p class="max-w-md text-[var(--color-ink-muted)]">
-          Working Nevada leaders on the things students actually face at school, online, and in their first real jobs.
-        </p>
-      </div>
-
-      <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {topics.map((t, i) => (
-          <li class={`card flex items-start gap-4 reveal reveal-delay-${(i % 4) + 1}`}>
-            <span class="shrink-0 w-9 h-9 rounded-full bg-[var(--color-brand-blue)] text-white font-display font-bold flex items-center justify-center text-sm">{String(i+1).padStart(2,'0')}</span>
-            <span class="text-[1.02rem] leading-snug">{t}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div class="reveal mt-12 p-8 md:p-10 rounded-[40px] border border-[var(--color-border-strong)] bg-gradient-to-br from-[var(--color-brand-blue-lo)]/40 to-transparent">
-        <p class="text-xl md:text-3xl font-display font-bold leading-tight">
-          This is not a motivational speech. <span class="text-[var(--color-brand-gold)]">It is applied leadership training rooted in real world experience.</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== SPEAKERS TEASER ===================== -->
-  <section id="speakers" class="section bg-[var(--color-canvas-lifted)]">
-    <div class="container-page">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-        <div>
-          <div class="eyebrow">Featured speakers</div>
-          <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight max-w-2xl">
-            Not career lecturers. <span class="script">Operators.</span>
-          </h2>
-        </div>
-        <p class="max-w-md text-[var(--color-ink-muted)]">
-          Business owners, nonprofit leaders, authors, and operators working in Nevada right now. The message lands because the people telling it are still in the arena.
+        <p class="lede pretty reveal reveal-delay-1">
+          Every NLAS speaker lives and works in Nevada. Students hear from people who are still doing the work.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-14 md:gap-10 lg:gap-16 items-start">
         {featured.map((s, i) => (
           <div class={`reveal reveal-delay-${i + 1}`}>
-          <SpeakerCard
-            name={s.name}
-            role={s.shortRole}
-            slug={s.slug}
-            image={s.image}
-            blurb={s.teaser}
-            accent={s.accent}
-          />
+            <SpeakerCard name={s.name} role={s.shortRole} slug={s.slug} image={s.image} blurb={s.teaser} accent={s.accent} />
           </div>
         ))}
       </div>
 
       <div class="mt-16 text-center">
-        <a href="/speakers" class="btn btn-ghost btn-lg">See the full roster →</a>
+        <a href="/speakers" class="btn btn-ghost btn-lg">See full roster →</a>
       </div>
     </div>
   </section>
 
-  <!-- ===================== WHY PARTNER ===================== -->
-  <section id="why" class="section">
-    <div class="container-page grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-5">
-        <div class="eyebrow">Why schools partner with NLAS</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
-          Content that is responsible and <span class="script">solution focused.</span>
-        </h2>
-        <p class="mt-6 text-[var(--color-ink-muted)] leading-relaxed">
-          Students lean in because the message is authentic. Administrators book us again because the content is responsible, age-appropriate, and solution focused.
+  <section class="section bg-[var(--color-canvas-lifted)] border-y border-[var(--color-border)]">
+    <div class="container-page">
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">How it works</div>
+          <h2 class="mt-5 balance">Booked in days. <span class="script">Vetted</span> before we arrive.</h2>
+        </div>
+        <p class="lede pretty reveal reveal-delay-1">
+          No pitch deck. No data capture. No surprise content. One conversation, a clean quote, a confirmed date.
         </p>
-        <a href="/contact" class="mt-8 btn btn-primary btn-lg inline-flex">Partner with NLAS →</a>
       </div>
 
-      <ul class="md:col-span-7 space-y-3">
-        {whySchools.map((w, i) => (
-          <li class={`card flex items-start gap-4 reveal reveal-delay-${(i % 4) + 1}`}>
-            <span class="shrink-0 mt-1 w-6 h-6 rounded-full border-2 border-[var(--color-brand-gold)] flex items-center justify-center text-[var(--color-brand-gold)] text-xs">✓</span>
-            <span class="leading-relaxed">{w}</span>
-          </li>
+      <div class="grid md:grid-cols-3 gap-5">
+        {steps.map((s, i) => (
+          <article class={`card reveal reveal-delay-${i + 1}`}>
+            <div class="num mb-5">{s.n}</div>
+            <h3>{s.t}</h3>
+            <p class="pretty mt-4 text-[var(--color-ink-muted)]">{s.b}</p>
+          </article>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== MISSION ===================== -->
-  <section id="mission" class="section relative overflow-hidden">
-    <div class="container-page relative">
-      <div class="max-w-4xl">
-        <div class="eyebrow">Our mission</div>
-        <h2 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[0.98] tracking-tight">
-          To strengthen Nevada's future by <span class="script normal-case">investing</span> in its students today.
-        </h2>
+  <section class="section section-tight">
+    <div class="container-page text-center">
+      <div class="eyebrow justify-center reveal">Partners &amp; resource organizations</div>
+      <div class="partner-cloud mt-8 reveal reveal-delay-1">
+        {partners.map((p) => <span class="chip">{p}</span>)}
       </div>
-
-      <div class="mt-14 grid md:grid-cols-3 gap-5">
-        {mission.map((m, i) => (
-          <div class={`card !rounded-[28px] !p-8 border-[var(--color-border-strong)] reveal reveal-delay-${i + 1}`}>
-            <p class="text-lg md:text-xl font-display font-semibold leading-snug">{m}</p>
-          </div>
-        ))}
-      </div>
-
-      <p class="mt-12 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
-        And we believe when students understand these truths early, they make better decisions, build stronger futures, and positively impact their communities.
-      </p>
     </div>
   </section>
 
-  <!-- ===================== FINAL CTA ===================== -->
   <section class="section pt-0">
     <div class="container-page">
-      <div class="stadium bg-[var(--color-brand-blue-lo)] p-10 md:p-16 relative overflow-hidden">
-        <svg aria-hidden="true" class="absolute inset-0 w-full h-full opacity-15" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <pattern id="ctaDiag" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="16" stroke="#E8B547" stroke-width="1.5"/>
-            </pattern>
-          </defs>
-          <rect width="800" height="400" fill="url(#ctaDiag)"/>
-        </svg>
-        <div class="relative grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <div class="eyebrow" style="color: #fff;">Bring NLAS in</div>
-            <h2 class="mt-4 text-3xl md:text-5xl font-display font-bold leading-tight">
-              Your students. <span class="script">Real</span> Nevada voices.
-            </h2>
-          </div>
-          <div class="md:text-right">
-            <a href="/contact" class="btn btn-gold btn-lg">Book a session →</a>
-            <p class="mt-4 text-sm text-white/70">K-12 · Colleges · Nevada-wide</p>
+      <div class="cta-band reveal">
+        <div>
+          <div class="eyebrow">Bring NLAS to your school</div>
+          <h2 class="mt-5 balance">The hour your students still <span class="script">talk about</span> a month later.</h2>
+        </div>
+        <div class="cta-actions">
+          <p class="pretty text-[var(--color-ink-muted)]">
+            Send your dates. We confirm fit, send a clean quote, and hold time on the calendar for 72 hours.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/contact" class="btn btn-gold">Request a quote →</a>
+            <a href="mailto:hello@leadershipseries.org" class="btn btn-ghost">hello@leadershipseries.org</a>
           </div>
         </div>
       </div>

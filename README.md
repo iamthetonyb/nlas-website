@@ -12,7 +12,7 @@ Built with **Astro 5 + TypeScript + Tailwind CSS v4** as a fully static site
 - **Tailwind CSS v4** via `@tailwindcss/vite`
 - **TypeScript** strict
 - **@astrojs/sitemap** — automatic `sitemap-index.xml`
-- Google Fonts: Inter + Archivo + Dancing Script (for the "Series" script accent)
+- Google Fonts: Inter + Archivo / Archivo Narrow + Caveat (for the handwritten "Series" accent)
 - No client runtime except a tiny inline mobile-nav toggle
 
 ## Pages
@@ -22,6 +22,7 @@ Built with **Astro 5 + TypeScript + Tailwind CSS v4** as a fully static site
 | `/`          | Hero · Pressures · Topics · Speakers teaser · Why partner · Mission · CTA |
 | `/about`     | Full about + mission beliefs                                     |
 | `/speakers`  | Full bios (Cody Whipple, Joey Charafi, Marlon Medina)            |
+| `/talks`     | Assembly and breakout formats                                    |
 | `/contact`   | Booking form (Formspree-ready) + mailto fallback                 |
 
 ## Design system (summary)
@@ -37,18 +38,16 @@ Built with **Astro 5 + TypeScript + Tailwind CSS v4** as a fully static site
 | Ink / Ink-muted    | `#F5F7FA` / `#8B9BB4` | Text                                  |
 
 Radii: `20px` (cards), `40px` (stadium hero frames), `999px` (pills, portraits).
-Typography: Archivo display (headlines, -2% tracking), Inter body (weight 450),
-Dancing Script for the "Series" accent.
+Typography: Archivo Narrow display, Inter body (weight 450), and Caveat for
+the handwritten "Series" accent.
 
 ---
 
 ## Local development
 
 ```bash
-# Install (pick one)
-pnpm install        # recommended
-# npm install
-# bun install
+# Install
+pnpm install
 
 # Dev server on http://localhost:4321
 pnpm dev
@@ -73,8 +72,8 @@ This is a **fully static site**. Deploy to Coolify in under 2 minutes:
 3. Paste your repo URL, pick the branch.
 4. **Build Pack → Static** (or Nixpacks with "Is it a static site?" checked).
 5. Set build settings:
-   - **Install command:** `pnpm install --frozen-lockfile`  (or `npm ci`)
-   - **Build command:** `pnpm build`  (or `npm run build`)
+   - **Install command:** `pnpm install --frozen-lockfile`
+   - **Build command:** `pnpm build`
    - **Publish directory:** `dist`
    - **Node version:** `20` or `22`
 6. Add your domain + let Coolify issue the Let's Encrypt cert.
@@ -87,10 +86,10 @@ A ready-to-use `Dockerfile` can be added at the repo root:
 ```dockerfile
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json pnpm-lock.yaml* package-lock.json* ./
-RUN corepack enable && (pnpm install --frozen-lockfile || npm ci)
+COPY package.json pnpm-lock.yaml* ./
+RUN corepack enable && pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm build || npm run build
+RUN pnpm build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
@@ -129,8 +128,8 @@ Then in Coolify pick **Dockerfile** build pack.
 
 ## Image placeholders
 
-Speaker portraits currently use Unsplash placeholders. Replace with real headshots
-in `src/content/speakers.ts` (keep 1:1 square crop — they render inside circles).
+Speaker portraits currently use local SVG placeholders. Replace with real headshots
+in `src/content/speakers.ts` (keep 1:1 square crop because they render inside circles).
 
 ---
 

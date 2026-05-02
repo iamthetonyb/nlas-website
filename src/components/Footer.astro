@@ -3,57 +3,56 @@ import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--color-canvas-deep)] border-t border-[var(--color-border)] mt-16 md:mt-24">
-  <div class="container-page py-16 md:py-24">
-    <!-- Conversational headline (Mastercard footer style) -->
-    <h2 class="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.05] max-w-3xl">
-      Ready to bring <span class="script text-[var(--color-brand-gold)]">real</span> leadership training to your students?
-    </h2>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href="/contact" class="btn btn-gold btn-lg">Book NLAS →</a>
-      <a href="/speakers" class="btn btn-ghost btn-lg">Meet the speakers</a>
+<footer class="footer-redesign">
+  <div class="container-page">
+    <div class="footer-mega balance">
+      Real Nevada <span class="script">leadership</span> in Nevada schools.
     </div>
 
-    <div class="orbit-line my-16"></div>
+    <div class="flex flex-wrap gap-3">
+      <a href="/contact" class="btn btn-gold btn-lg">Request a quote →</a>
+      <a href="mailto:hello@leadershipseries.org" class="btn btn-ghost btn-lg">hello@leadershipseries.org</a>
+    </div>
+
+    <div class="rule my-12 md:my-16"></div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
       <div class="md:col-span-2">
         <Logo variant="compact" />
         <p class="mt-5 text-sm text-[var(--color-ink-muted)] max-w-sm leading-relaxed">
-          The Nevada Leadership &amp; Accountability Series is a Nevada-based initiative equipping K-12 and college students across Nevada to lead with integrity, discipline, and digital responsibility.
+          The Nevada Leadership &amp; Accountability Series equips middle school, high school, and college students across Nevada to lead with integrity, discipline, and digital responsibility.
         </p>
-        <p class="mt-4 text-sm text-[var(--color-ink-muted)]">
-          Based in Las Vegas, Nevada.
-        </p>
+        <p class="mt-4 text-sm text-[var(--color-ink-muted)]">Based in Las Vegas, Nevada.</p>
       </div>
 
       <div>
-        <div class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-ink-muted)] mb-4">Explore</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="/" class="hover:text-[var(--color-brand-gold)] transition">Home</a></li>
-          <li><a href="/about" class="hover:text-[var(--color-brand-gold)] transition">About</a></li>
-          <li><a href="/speakers" class="hover:text-[var(--color-brand-gold)] transition">Speakers</a></li>
-          <li><a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Contact</a></li>
+        <div class="footer-label">Explore</div>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/speakers">Speakers</a></li>
+          <li><a href="/talks">Talks</a></li>
+          <li><a href="/contact">Book</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-ink-muted)] mb-4">Partner</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="/#why" class="hover:text-[var(--color-brand-gold)] transition">Why partner</a></li>
-          <li><a href="/#mission" class="hover:text-[var(--color-brand-gold)] transition">Our mission</a></li>
-          <li><a href="/#topics" class="hover:text-[var(--color-brand-gold)] transition">Topics covered</a></li>
-          <li><a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Book a session ↗</a></li>
+        <div class="footer-label">For schools</div>
+        <ul class="footer-links">
+          <li><a href="/#topics">Topics covered</a></li>
+          <li><a href="/talks">Assembly formats</a></li>
+          <li><a href="/contact">Parent night add-on</a></li>
+          <li><a href="/contact">Title I &amp; rural rate</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 pt-6 border-t border-[var(--color-border)] flex flex-col md:flex-row gap-4 md:items-center justify-between text-xs text-[var(--color-ink-muted)]">
+    <div class="mt-12 md:mt-16 pt-6 border-t border-[var(--color-border)] flex flex-col md:flex-row gap-4 md:items-center justify-between text-xs text-[var(--color-ink-muted)]">
       <div>© {year} Nevada Leadership &amp; Accountability Series. Proudly Nevada-based.</div>
       <div class="flex items-center gap-4">
-        <span>Las Vegas, NV</span>
+        <span>Built in Nevada</span>
         <span aria-hidden="true">·</span>
-        <a href="/contact" class="hover:text-[var(--color-brand-gold)] transition">Press &amp; Partnerships</a>
+        <a href="/contact">Privacy &amp; accessibility requests</a>
       </div>
     </div>
   </div>

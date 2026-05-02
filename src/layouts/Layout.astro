@@ -161,12 +161,12 @@ const pageLd = schemaType && schemaType !== 'WebSite' && schemaType !== 'Organiz
     <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Archivo:wght@500;600;700;800;900&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Archivo+Narrow:wght@500;600;700&family=Caveat:wght@500;600;700&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Structured Data: Organization + WebSite -->
-    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
-    {pageLd && <script type="application/ld+json" set:html={JSON.stringify(pageLd)} />}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+    {pageLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(pageLd)} />}
 
     <!-- Astro 5 View Transitions. SPA-style cross-fade navigation, zero framework dependency.
          fallback="animate" = JS-simulated cross-fade for browsers w/o native View Transitions API (Firefox, Safari ≤17). -->

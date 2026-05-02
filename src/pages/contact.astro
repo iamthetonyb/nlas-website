@@ -23,14 +23,15 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
   description="Book NLAS for your K-12 school or college, or apply to become an NLAS speaker. Serving Nevada communities statewide."
   schemaType="ContactPage"
 >
-  <section class="section pb-8 md:pb-12">
-    <div class="container-page">
-      <div class="eyebrow" id="intent-eyebrow">Book NLAS</div>
-      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl" id="intent-h1">
-        Let's bring <span class="script normal-case font-normal">real</span> conversations to your students.
+  <section class="section pb-8 md:pb-12 overflow-hidden">
+    <div class="topo" aria-hidden="true"></div>
+    <div class="container-page relative">
+      <div class="eyebrow reveal" id="intent-eyebrow">Book NLAS</div>
+      <h1 class="display balance mt-10 max-w-[14ch] reveal reveal-delay-1" id="intent-h1">
+        Send your dates. <span class="script">We handle</span> the rest.
       </h1>
-      <p class="mt-8 text-lg text-[var(--color-ink)]/85 max-w-2xl leading-relaxed" id="intent-sub">
-        Tell us about your school. We respond with availability, formats, and next steps. Most sessions book 2 to 6 weeks out.
+      <p class="pretty mt-8 text-lg md:text-xl text-[var(--color-ink-muted)] max-w-3xl leading-relaxed reveal reveal-delay-2" id="intent-sub">
+        One form. One business day. A clean quote and a held date, or a clear yes/no on fit. Most sessions book 2 to 6 weeks out.
       </p>
     </div>
   </section>
@@ -40,7 +41,7 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
       <!-- Form -->
       <form
         id="contact-form"
-        class="md:col-span-8 card !p-6 md:!p-10 !rounded-[28px]"
+        class="md:col-span-8 card contact-card !p-6 md:!p-10 !rounded-[28px]"
         action={FORM_ENDPOINT}
         method="POST"
         aria-label="Contact form"
@@ -216,20 +217,20 @@ const FORM_ENDPOINT = 'https://formsubmit.co/ajax/iam@thetonyb.com';
         // Copy + CTA by intent.
         if (type === 'become-speaker') {
           eyebrow.textContent = 'Become a speaker';
-          h1.innerHTML = 'Think you\u2019ve got a <span class="script normal-case font-normal">story</span> Nevada students need?';
+          h1.innerHTML = 'Think you\u2019ve got a <span class="script">story</span> Nevada students need?';
           sub.textContent = 'Tell us who you are and what you bring. NLAS is always looking for Nevada-based operators with real, lived experience.';
           submitBtn.textContent = 'Submit my application \u2192';
           msg.placeholder = 'Why you? What would your message to students be? Any past speaking experience?';
         } else if (type === 'partnership') {
           eyebrow.textContent = 'Partnership';
-          h1.innerHTML = 'Let\u2019s build something <span class="script normal-case font-normal">together.</span>';
+          h1.innerHTML = 'Let\u2019s build something <span class="script">together.</span>';
           sub.textContent = 'Press, sponsorship, or strategic partnership. Tell us what you are thinking.';
           submitBtn.textContent = 'Send my inquiry \u2192';
           msg.placeholder = 'Tell us about your organization and what you have in mind.';
         } else {
           eyebrow.textContent = 'Book NLAS';
-          h1.innerHTML = 'Let\u2019s bring <span class="script normal-case font-normal">real</span> conversations to your students.';
-          sub.textContent = 'Tell us about your school. We respond with availability, formats, and next steps. Most sessions book 2 to 6 weeks out.';
+          h1.innerHTML = 'Send your dates. <span class="script">We handle</span> the rest.';
+          sub.textContent = 'One form. One business day. A clean quote and a held date, or a clear yes/no on fit. Most sessions book 2 to 6 weeks out.';
           submitBtn.textContent = 'Send my request \u2192';
           msg.placeholder = 'Leadership under pressure, cyberbullying, digital footprint, entrepreneurship, Q&A format, dates you have in mind\u2026';
         }

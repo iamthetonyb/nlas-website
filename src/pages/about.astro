@@ -1,106 +1,115 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import VideoHero from '../components/VideoHero.astro';
-
-const beliefs = [
-  {
-    t: 'Leadership is responsibility, not status.',
-    d: 'Leadership shows up in how you carry pressure, not in a title. We teach students that accountability is a daily practice.',
-  },
-  {
-    t: 'Entrepreneurship is value creation, not fame.',
-    d: 'Real businesses solve real problems. We connect students to Nevada founders who have built, hired, and delivered for decades.',
-  },
-  {
-    t: 'Digital platforms are permanent records.',
-    d: 'We teach digital responsibility and cyberbullying awareness in plain language, before a post shapes a future.',
-  },
-];
+import { beliefs, faqs } from '../content/site';
 ---
 
 <Layout
   title="About"
-  description="NLAS is a Nevada-based initiative equipping K-12 and college students to lead with integrity, discipline, and digital responsibility. Real operators, real conversations."
+  description="NLAS is a Nevada-based initiative equipping middle school, high school, and college students to lead with integrity, discipline, and digital responsibility. Real operators, real conversations."
   schemaType="AboutPage"
 >
-  <section class="section pb-12 md:pb-16">
-    <div class="container-page">
-      <div class="eyebrow">About NLAS</div>
-      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl">
-        Investing in Nevada's next <span class="script normal-case font-normal">generation.</span>
+  <section class="section pb-12 md:pb-16 overflow-hidden">
+    <div class="topo" aria-hidden="true"></div>
+    <div class="container-page relative">
+      <div class="eyebrow reveal">About the series</div>
+      <h1 class="display balance mt-10 max-w-[16ch] reveal reveal-delay-1">
+        A standard you <span class="script">hold yourself</span> to.
       </h1>
-      <p class="mt-8 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
-        The Nevada Leadership &amp; Accountability Series exists to equip middle school, high school, and college students with the mindset and skills necessary to lead in today's rapidly evolving world.
-      </p>
+      <div class="mt-12 md:mt-16 grid md:grid-cols-2 gap-10 md:gap-14">
+        <p class="pretty text-lg md:text-xl text-[var(--color-ink)]/90 leading-relaxed reveal reveal-delay-2">
+          NLAS started with a simple observation. Students hear motivational talks all year long and remember almost none of them. What sticks is the person who showed up, did the work in front of them, and told the truth.
+        </p>
+        <p class="pretty text-[var(--color-ink-muted)] leading-relaxed reveal reveal-delay-3">
+          We built the series around that. Every speaker lives in Nevada. Every session is pre-vetted by the school. Every topic connects to something students face this week: online, in the hallway, on the team, and at home.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="section !py-16 bg-[var(--color-canvas-lifted)]">
-    <div class="container-page grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-5">
-        <div class="eyebrow">The why</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
-          Previous generations didn't <span class="script">face this.</span>
-        </h2>
+  <section class="section light">
+    <div class="container-page">
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">What we believe</div>
+          <h2 class="mt-5 balance">Five operating <span class="script">principles</span>.</h2>
+        </div>
+        <p class="lede pretty reveal reveal-delay-1">
+          These are the rules we use when deciding what to say yes to and what to decline.
+        </p>
       </div>
-      <div class="md:col-span-7">
-        <p class="text-lg leading-relaxed text-[var(--color-ink)]/85">
-          Social media influence. Cyberbullying. Digital permanence. Cultural noise. Entrepreneurial opportunity without guidance. Leadership visibility without mentorship.
-        </p>
-        <p class="mt-6 text-base text-[var(--color-ink-muted)] leading-relaxed">
-          NLAS brings working Nevada leaders into K-12 schools and colleges for real, direct, practical conversations. Not a motivational speech. Applied leadership training rooted in real world experience.
-        </p>
+
+      <div class="belief-list">
+        {beliefs.map((b, i) => (
+          <article class={`belief-row reveal reveal-delay-${(i % 4) + 1}`}>
+            <div class="num">{b.n}</div>
+            <h3>{b.k}</h3>
+            <p>{b.v}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container-page">
-      <div class="max-w-3xl">
-        <div class="eyebrow">Our mission</div>
-        <h2 class="mt-5 text-4xl md:text-6xl font-display font-black leading-[1.02] tracking-tight">
-          To strengthen Nevada's future by investing in its <span class="script normal-case font-normal">students today.</span>
-        </h2>
+      <div class="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <div class="reveal">
+          <div class="eyebrow">Our mission</div>
+          <h2 class="mt-5 balance">Develop leaders Nevada will be proud to <span class="script">hand the keys</span> to.</h2>
+        </div>
+        <div class="grid gap-5 text-[var(--color-ink-muted)] leading-relaxed reveal reveal-delay-1">
+          <p class="pretty">We partner with schools across the state to deliver practical leadership training, digital responsibility education, and honest conversations about stepping up in the classroom, in the community, and online.</p>
+          <p class="pretty">We partner with trusted resource organizations when a topic needs deeper expertise. That is how we cover harder subjects responsibly and stay inside the lines districts care about.</p>
+        </div>
       </div>
-
-      <div class="mt-14 grid md:grid-cols-3 gap-5">
-        {beliefs.map((b, i) => (
-          <article class={`card !rounded-[28px] !p-8 border-[var(--color-border-strong)] reveal reveal-delay-${i + 1}`}>
-            <div class="text-sm font-bold text-[var(--color-brand-gold)]">{String(i+1).padStart(2,'0')}</div>
-            <h3 class="mt-3 text-xl md:text-2xl font-display font-bold leading-snug">{b.t}</h3>
-            <p class="mt-4 text-[var(--color-ink-muted)] leading-relaxed text-[0.98rem]">{b.d}</p>
-          </article>
-        ))}
-      </div>
-
-      <p class="mt-12 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
-        And we believe when students understand these truths early, they make better decisions, build stronger futures, and positively impact their communities.
-      </p>
     </div>
   </section>
 
-  <!-- Video. NLAS in the field. -->
   <VideoHero
     youtubeId="XKJizOAZdZY"
     orientation="vertical"
     eyebrow="Watch"
     title="NLAS in the field."
-    subtitle="Nevada operators delivering real, direct conversations to K-12 classrooms and colleges."
+    subtitle="Nevada operators delivering real, direct conversations to classrooms and colleges."
   />
 
-  <section class="section pt-0">
+  <section class="section bg-[var(--color-canvas-lifted)] border-y border-[var(--color-border)]">
     <div class="container-page">
-      <div class="stadium bg-gradient-to-br from-[var(--color-brand-blue-lo)] to-[var(--color-canvas-lifted)] p-10 md:p-14 relative overflow-hidden">
-        <div class="relative grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <div class="eyebrow">Partner with NLAS</div>
-            <h2 class="mt-4 text-3xl md:text-5xl font-display font-bold leading-tight">
-              Ready to bring this to your students?
-            </h2>
-          </div>
-          <div class="md:text-right">
-            <a href="/contact" class="btn btn-gold btn-lg">Book a session →</a>
-            <p class="mt-4 text-sm text-white/70">K-12 · Colleges</p>
+      <div class="section-head">
+        <div class="reveal">
+          <div class="eyebrow">Administrator FAQ</div>
+          <h2 class="mt-5 balance">The questions we hear most.</h2>
+        </div>
+      </div>
+
+      <div class="faq-list reveal reveal-delay-1">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <span>{f.q}</span>
+              <span class="faq-plus" aria-hidden="true">+</span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <div class="cta-band reveal">
+        <div>
+          <div class="eyebrow">Bring NLAS to your school</div>
+          <h2 class="mt-5 balance">Ready when your <span class="script">calendar</span> is.</h2>
+        </div>
+        <div class="cta-actions">
+          <p class="pretty text-[var(--color-ink-muted)]">Send the audience, goals, and date range. We reply with fit, format, and next steps.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/contact" class="btn btn-gold">Request a quote →</a>
+            <a href="/speakers" class="btn btn-ghost">Meet the speakers</a>
           </div>
         </div>
       </div>

@@ -25,17 +25,17 @@ const peopleLd = speakers.map((s) => ({
   description="Meet the Nevada operators behind NLAS. Business owners, nonprofit leaders, authors, and working professionals delivering applied leadership training to K-12 schools and colleges across Nevada."
 >
   <Fragment slot="head">
-    {peopleLd.map((p) => <script type="application/ld+json" set:html={JSON.stringify(p)} />)}
+    {peopleLd.map((p) => <script is:inline type="application/ld+json" set:html={JSON.stringify(p)} />)}
   </Fragment>
 
-  <!-- Hero -->
-  <section class="section pb-12 md:pb-16">
-    <div class="container-page">
-      <div class="eyebrow">Speakers</div>
-      <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-display font-black uppercase leading-[0.98] tracking-tight max-w-5xl">
-        Not career lecturers. <span class="script normal-case font-normal">Operators.</span>
+  <section class="section pb-12 md:pb-16 overflow-hidden">
+    <div class="topo" aria-hidden="true"></div>
+    <div class="container-page relative">
+      <div class="eyebrow reveal">Current roster · Nevada</div>
+      <h1 class="display balance mt-10 max-w-[14ch] reveal reveal-delay-1">
+        Operators, not <span class="script">keynote tourists</span>.
       </h1>
-      <p class="mt-8 text-lg md:text-xl text-[var(--color-ink)]/85 max-w-3xl leading-relaxed">
+      <p class="pretty mt-8 text-lg md:text-xl text-[var(--color-ink-muted)] max-w-3xl leading-relaxed reveal reveal-delay-2">
         Our speakers are business owners, nonprofit leaders, authors, and operators actively working in Nevada communities. Students lean in because the message is authentic. Administrators book us again because the content is responsible, age-appropriate, and solution focused.
       </p>
     </div>
@@ -43,11 +43,11 @@ const peopleLd = speakers.map((s) => ({
 
   <!-- Current roster -->
   {current.length > 0 && (
-    <section class="!pb-0">
+    <section class="section section-tight !pb-0">
       <div class="container-page">
         <div class="orbit-line mb-2"></div>
-        <div class="eyebrow mt-10">Current roster</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
+        <div class="eyebrow mt-10 reveal">Full bios</div>
+        <h2 class="mt-5 balance reveal reveal-delay-1">
           Our <span class="script">current</span> speakers.
         </h2>
       </div>
@@ -55,7 +55,7 @@ const peopleLd = speakers.map((s) => ({
   )}
 
   {current.map((s, idx) => (
-    <section id={s.slug} class="section !py-16 md:!py-24 scroll-mt-24">
+    <section id={s.slug} class="speaker-section section !py-16 md:!py-24 scroll-mt-24">
       <div class="container-page">
         <div class={`grid md:grid-cols-12 gap-10 md:gap-16 items-start ${idx % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
           <div class="md:col-span-5 lg:col-span-4 reveal">
@@ -79,7 +79,7 @@ const peopleLd = speakers.map((s) => ({
 
           <div class="md:col-span-7 lg:col-span-8 reveal reveal-delay-1">
             <div class="eyebrow">{idx === 0 ? 'Founder' : `Speaker ${String(idx + 1).padStart(2, '0')}`}</div>
-            <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-display font-black uppercase leading-[0.98] tracking-tight">{s.title}</h2>
+            <h2 class="speaker-name mt-4">{s.title}</h2>
             <p class="mt-4 text-lg text-[var(--color-brand-gold)]">{s.role}</p>
 
             <div class="mt-8 space-y-5 text-[1.02rem] leading-relaxed text-[var(--color-ink)]/88">
@@ -125,7 +125,7 @@ const peopleLd = speakers.map((s) => ({
     <section class="section bg-[var(--color-canvas-lifted)]">
       <div class="container-page">
         <div class="eyebrow">Past speakers</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold leading-tight">
+        <h2 class="mt-5 balance">
           Previously on the <span class="script">NLAS stage.</span>
         </h2>
 
@@ -158,7 +158,7 @@ const peopleLd = speakers.map((s) => ({
   <section class="section pt-0">
     <div class="container-page">
       <div class="orbit-line mb-14"></div>
-      <div class="stadium relative overflow-hidden bg-gradient-to-br from-[var(--color-brand-blue-lo)] via-[var(--color-canvas-lifted)] to-[var(--color-canvas-deep)] p-10 md:p-16">
+      <div class="cta-band">
         <svg aria-hidden="true" class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
           <defs>
             <pattern id="bsDiag" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -171,7 +171,7 @@ const peopleLd = speakers.map((s) => ({
         <div class="relative grid md:grid-cols-12 gap-8 items-center">
           <div class="md:col-span-7">
             <div class="eyebrow">Become a speaker</div>
-            <h2 class="mt-4 text-3xl md:text-5xl font-display font-bold leading-tight">
+            <h2 class="mt-4 balance">
               Think you've got a <span class="script">story</span> Nevada students need to hear?
             </h2>
             <p class="mt-6 text-[var(--color-ink)]/85 max-w-2xl">
@@ -186,7 +186,7 @@ const peopleLd = speakers.map((s) => ({
 
       <div class="mt-14 text-center">
         <div class="eyebrow justify-center">Ready to book</div>
-        <h2 class="mt-5 text-3xl md:text-5xl font-display font-bold">
+        <h2 class="mt-5 balance">
           Bring a Nevada operator into your <span class="script">classroom.</span>
         </h2>
         <a href="/contact" class="mt-8 btn btn-ghost btn-lg">Book NLAS →</a>

@@ -1,7 +1,7 @@
 // Generates raster OG + favicon assets from SVG sources.
 // Run: node scripts/gen-assets.mjs
 import sharp from 'sharp';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -57,7 +57,7 @@ const ogSvg = `
   </g>
 
   <!-- "Series" script accent -->
-  <text x="430" y="480" font-family="Dancing Script, Brush Script MT, cursive" font-size="96" fill="#E8B547" font-style="italic">Series</text>
+  <text x="430" y="480" font-family="Caveat, Brush Script MT, cursive" font-size="96" fill="#E8B547" font-style="italic">Series</text>
 
   <!-- Bottom tagline + domain -->
   <line x1="430" y1="520" x2="1110" y2="520" stroke="#E8B547" stroke-width="1" opacity="0.4"/>
@@ -92,7 +92,7 @@ const squareSvg = `
     <text x="150" y="790" font-size="84">LEADERSHIP</text>
     <text x="150" y="880" font-size="84">&amp; ACCOUNTABILITY</text>
   </g>
-  <text x="150" y="990" font-family="Dancing Script, cursive" font-size="104" fill="#E8B547" font-style="italic">Series</text>
+  <text x="150" y="990" font-family="Caveat, cursive" font-size="104" fill="#E8B547" font-style="italic">Series</text>
 </svg>`.trim();
 
 // ---------- Favicon / app icons — square stripe mark ----------
